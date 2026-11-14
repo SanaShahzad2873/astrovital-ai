@@ -3,9 +3,12 @@ import AppShell from './components/layout/AppShell'
 import ComingSoon from './pages/ComingSoon'
 import CommandCenter from './pages/CommandCenter'
 import { NAV_ITEMS } from './config/navigation'
+import DigitalTwin from './pages/DigitalTwin'
+
 
 const PAGES = {
   '/': <CommandCenter />,
+  '/twin': <DigitalTwin />,
 }
 
 export default function App() {

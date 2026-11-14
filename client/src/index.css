@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@import "@fontsource/barlow/400.css";
+@import "@fontsource/barlow/500.css";
+@import "@fontsource/barlow/600.css";
+@import "@fontsource/barlow-condensed/600.css";
+@import "@fontsource/barlow-condensed/700.css";
+
+@theme {
+  /* Official AstroVital palette */
+  --color-nasa-blue: #0B3D91;
+  --color-space-navy: #061A35;
+  --color-mission-yellow: #FFD100;
+  --color-ice: #DCE6F1;
+  --color-nasa-red: #FC3D21;
+
+  /* Slightly lighter navy for cards and panels */
+  --color-panel: #0A2447;
+  --color-panel-raised: #0E2F5C;
+
+  /* Health status colors */
+  --color-status-optimal: #22C55E;
+  --color-status-attention: #FFD100;
+  --color-status-risk: #FC3D21;
+  --color-status-radiation: #5AA9FF;
+  --color-status-fatigue: #B9A5FF;
+
+  /* Typography */
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-sans: "Barlow", system-ui, sans-serif;
+}
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body {
+    background-color: var(--color-space-navy);
+    color: white;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-mission-yellow);
+    outline-offset: 2px;
+  }
+}
+/* Slim dark scrollbars (sidebar and panels) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(220, 230, 241, 0.25) transparent;
+}

@@ -1,0 +1,91 @@
+{
+  "timestamp": "2026-11-14T19:25:09.735Z",
+  "domains": [
+    {
+      "domain": "cardiovascular",
+      "status": "high",
+      "score": 82,
+      "confidence": "low",
+      "contributingFactors": [
+        "a-2 Macroglobulin (high): Latest value (R+194) is 3.9 robust deviations from this person's own baseline median of 5.956.",
+        "Fetuin A36 (high): Latest value (R+194) is 4.9 robust deviations from this person's own baseline median of 5.191.",
+        "Haptoglobin (high): Latest value (R+194) is 12.2 robust deviations from this person's own baseline median of 6.021.",
+        "AGP (attention): Latest value (R+194) is 3.5 robust deviations from this person's own baseline median of 6.084.",
+        "L-Selectin (attention): Latest value (R+194) is 2.4 robust deviations from this person's own baseline median of 5.749."
+      ],
+      "dataQuality": {
+        "series": 9,
+        "usable": 9,
+        "unknown": 0
+      },
+      "sources": [
+        "NASA_RESEARCH"
+      ]
+    },
+    {
+      "domain": "sleep",
+      "status": "high",
+      "score": 100,
+      "confidence": "moderate",
+      "contributingFactors": [
+        "sleep_hours (high): Latest value (N30) is -4.3 robust deviations from this person's own baseline median of 7.4."
+      ],
+      "dataQuality": {
+        "series": 1,
+        "usable": 1,
+        "unknown": 0
+      },
+      "sources": [
+        "SIMULATED_DEMO"
+      ]
+    },
+    {
+      "domain": "radiation",
+      "status": "unknown",
+      "score": null,
+      "confidence": "none",
+      "contributingFactors": [
+        "No data available for this domain."
+      ],
+      "dataQuality": {
+        "series": 0,
+        "usable": 0,
+        "unknown": 0
+      },
+      "sources": []
+    },
+    {
+      "domain": "musculoskeletal",
+      "status": "unknown",
+      "score": null,
+      "confidence": "none",
+      "contributingFactors": [
+        "No data available for this domain."
+      ],
+      "dataQuality": {
+        "series": 0,
+        "usable": 0,
+        "unknown": 0
+      },
+      "sources": []
+    }
+  ],
+  "domainsMissing": [
+    "radiation",
+    "musculoskeletal"
+  ],
+  "dataCompleteness": "partial",
+  "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds. Decision support only, not a diagnosis.",
+  "status": "high",
+  "score": 96,
+  "confidence": "low",
+  "contributingFactors": [
+    "sleep is high (score 100): sleep_hours (high): Latest value (N30) is -4.3 robust deviations from this person's own baseline median of 7.4.",
+    "cardiovascular is high (score 82): a-2 Macroglobulin (high): Latest value (R+194) is 3.9 robust deviations from this person's own baseline median of 5.956.",
+    "No usable data for: radiation, musculoskeletal. Overall status covers only the domains with data."
+  ],
+  "sources": [
+    "NASA_RESEARCH",
+    "SIMULATED_DEMO"
+  ]
+}

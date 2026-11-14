@@ -125,7 +125,7 @@ export function analyzeSeries({ observations, baselineValues, meta = {}, config 
   let status = last.status;
   const factors = [];
   if (last.status !== 'normal') {
-    factors.push(`Latest value (${last.label}) is ${last.z.toFixed(1)} robust deviations from this person's own baseline median of ${baseline.median}.`);
+    factors.push(`Latest value (${last.label}) is ${last.z.toFixed(1)} robust deviations from this person's own baseline median of ${Number(baseline.median.toPrecision(4))}.`);
   }
   if (persistent) { status = worse(status, 'attention'); factors.push(`${run} consecutive measurements deviate in the same direction (persistence).`); }
   if (ewmaAlarm) { status = worse(status, 'attention'); factors.push('EWMA trend crossed its control limit (gradual drift).'); }

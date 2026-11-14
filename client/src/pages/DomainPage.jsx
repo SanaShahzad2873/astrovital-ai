@@ -1,3 +1,4 @@
+import { Info } from 'lucide-react'
 import Card from '../components/ui/Card'
 import MetricCard from '../components/ui/MetricCard'
 import StatusBadge from '../components/ui/StatusBadge'
@@ -20,6 +21,7 @@ export default function DomainPage({ domainKey, title, icon: Icon, limitations =
   const metrics = dom.metrics ?? []
   const color = STATUS_COLOR[dom.status] ?? STATUS_COLOR.unknown
   const hasScore = dom.riskScore !== null && dom.riskScore !== undefined
+  const pct = hasScore ? Math.max(0, Math.min(100, Number(dom.riskScore))) : 0
 
   const facts = [
     ['Confidence', `${Math.round((dom.confidence ?? 0) * 100)}%`],
@@ -28,39 +30,71 @@ export default function DomainPage({ domainKey, title, icon: Icon, limitations =
   ]
 
   return (
-    <div className="space-y-5">
+    <div className="ac-page">
       <DemoBanner />
 
-      {/* Header */}
-      <section className="glass-card flex flex-wrap items-center justify-between gap-4 p-5">
-        <div className="flex items-center gap-3">
-          {Icon && (
-            <span
-              className="grid h-12 w-12 place-items-center rounded-lg"
-              style={{ background: `color-mix(in srgb, ${color} 16%, transparent)`, color }}
-            >
-              <Icon size={26} />
-            </span>
-          )}
-          <div>
-            <p className="eyebrow">Health domain</p>
-            <h1 className="text-3xl font-bold text-white">{title}</h1>
+      {/* Header: domain identity, status and score */}
+      <section className="glass-card relative overflow-hidden p-6">
+        <span
+          className="absolute inset-x-8 top-0 h-px"
+          style={{ background: `linear-gradient(90deg, transparent, ${color}, transparent)` }}
+          aria-hidden="true"
+        />
+        <div className="flex flex-wrap items-center justify-between gap-5">
+          <div className="flex items-center gap-4">
+            {Icon && (
+              <span
+                className="grid h-14 w-14 place-items-center rounded-2xl"
+                style={{
+                  background: `color-mix(in srgb, ${color} 14%, transparent)`,
+                  color,
+                  boxShadow: `0 0 28px -8px ${color}`,
+                }}
+              >
+                <Icon size={28} />
+              </span>
+            )}
+            <div>
+              <p className="text-sm font-medium text-ice/55">Health domain</p>
+              <h1 className="mt-0.5 text-[30px] font-semibold leading-tight tracking-tight text-white">
+                {title}
+              </h1>
+              <div className="mt-2 flex flex-wrap items-center gap-2">
+                <StatusBadge status={dom.status} />
+                <SourceTag source={dom.source} />
+              </div>
+            </div>
+          </div>
+
+          <div className="min-w-[180px] text-right">
+            <p className="text-xs font-medium text-ice/55">Risk score</p>
+            <p className="num text-[52px] leading-none text-white">
+              {hasScore ? dom.riskScore : '—'}
+              {hasScore && <span className="ml-1.5 text-base font-medium text-ice/50">/100</span>}
+            </p>
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <StatusBadge status={dom.status} />
-          <SourceTag source={dom.source} />
-          <p className="num text-4xl text-white">
-            {hasScore ? dom.riskScore : '—'}
-            {hasScore && <span className="ml-1 font-mono text-xs text-ice/70">/100</span>}
-          </p>
+
+        <div
+          className="mt-6 h-1.5 overflow-hidden rounded-full bg-white/[0.08]"
+          role="img"
+          aria-label={hasScore ? `Risk score ${pct} out of 100` : 'No risk score'}
+        >
+          <div
+            className="h-full rounded-full"
+            style={{
+              width: `${pct}%`,
+              background: `linear-gradient(90deg, color-mix(in srgb, ${color} 55%, transparent), ${color})`,
+              boxShadow: hasScore ? `0 0 10px ${color}` : 'none',
+            }}
+          />
         </div>
       </section>
 
       {/* Metrics */}
       <section aria-label="Measurements">
         {metrics.length ? (
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="ac-kpi-grid">
             {metrics.map((m) => (
               <MetricCard
                 key={m.key}
@@ -80,7 +114,7 @@ export default function DomainPage({ domainKey, title, icon: Icon, limitations =
       </section>
 
       {/* Trend + factors */}
-      <div className="grid gap-4 lg:grid-cols-[1fr_360px]">
+      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_380px]">
         <Card title={`${title} risk trend`} action={<SourceTag source={dom.source} />}>
           {dom.history?.length ? (
             <RiskTrendChart data={dom.history} color={color} />
@@ -91,22 +125,26 @@ export default function DomainPage({ domainKey, title, icon: Icon, limitations =
 
         <Card title="Contributing factors">
           {dom.contributingFactors?.length ? (
-            <ul className="space-y-3 text-sm">
+            <ul className="space-y-4">
               {dom.contributingFactors.map((f, i) => (
-                <li key={i}>
-                  <span className="text-white">{f.label}</span>
-                  <span className="block text-xs text-ice/70">{f.detail}</span>
+                <li key={i} className="flex items-start gap-3">
+                  <span className="ac-dot" />
+                  <div>
+                    <span className="ac-factor-title">{f.label}</span>
+                    <span className="ac-factor-detail">{f.detail}</span>
+                  </div>
                 </li>
               ))}
             </ul>
           ) : (
             <p className="text-sm text-ice/60">No contributing factors reported.</p>
           )}
-          <dl className="mt-4 divide-y divide-white/10 border-t border-white/10 text-sm">
+
+          <dl className="ac-rows mt-5 border-t border-white/[0.08] pt-1">
             {facts.map(([k, v]) => (
-              <div key={k} className="flex items-center justify-between py-2">
-                <dt className="text-ice/70">{k}</dt>
-                <dd className="font-mono text-white">{v}</dd>
+              <div key={k} className="ac-row" style={{ borderTop: 'none' }}>
+                <dt>{k}</dt>
+                <dd className="capitalize">{v}</dd>
               </div>
             ))}
           </dl>
@@ -116,8 +154,16 @@ export default function DomainPage({ domainKey, title, icon: Icon, limitations =
       {/* Data limitations */}
       {limitations.length > 0 && (
         <Card title="Data limitations">
-          <ul className="list-disc space-y-1.5 pl-5 text-sm text-ice">
-            {limitations.map((t, i) => <li key={i}>{t}</li>)}
+          <ul className="grid gap-3 md:grid-cols-2">
+            {limitations.map((t, i) => (
+              <li
+                key={i}
+                className="flex items-start gap-3 rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-3.5"
+              >
+                <Info size={17} className="mt-0.5 shrink-0 text-hud" />
+                <p className="text-sm leading-relaxed text-ice/80">{t}</p>
+              </li>
+            ))}
           </ul>
         </Card>
       )}

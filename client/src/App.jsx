@@ -13,6 +13,7 @@ import { useEffect } from 'react'
 import BlackoutMode from './pages/BlackoutMode'
 import { getAstronautState, USE_MOCK } from './services/api'
 import { saveSnapshot } from './services/offlineStore'
+import Copilot from './pages/Copilot'
 
 
 const PAGES = {
@@ -24,6 +25,7 @@ const PAGES = {
   '/musculoskeletal': <MuscleBone />,
   '/research': <ResearchLibrary />,
   '/blackout': <BlackoutMode />,
+  '/copilot': <Copilot />,
 }
 
 export default function App() {

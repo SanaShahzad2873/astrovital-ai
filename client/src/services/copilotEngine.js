@@ -8,6 +8,14 @@ const DOMAIN_LABEL = {
   musculoskeletal: 'Muscle & Bone',
 }
 
+const STATUS_WORD = {
+  optimal: 'Optimal',
+  attention: 'Attention',
+  fatigue: 'Fatigue',
+  risk: 'High Risk',
+  unknown: 'No data',
+}
+
 const has = (q, words) => words.some((w) => q.includes(w))
 
 const confText = (c) =>
@@ -16,19 +24,24 @@ const confText = (c) =>
 function describeDomain(key, d) {
   const label = DOMAIN_LABEL[key]
   if (!d || d.status === 'unknown' || d.riskScore == null) {
+    const notes = (d?.contributingFactors ?? []).map((f) => f.detail)
     return {
       text: `${label}: there is not enough data yet, so no status can be given. Missing data does not mean healthy.`,
-      bullets: [],
+      bullets: notes,
       source: d?.source,
     }
   }
   const bullets = (d.contributingFactors ?? []).map((f) => `${f.label}: ${f.detail}`)
-  let text = `${label} is "${d.status}" with a score of ${d.riskScore}/100 (confidence ${confText(d.confidence)}, data quality ${d.dataQuality}).`
+  const text = `${label} is "${STATUS_WORD[d.status] ?? d.status}" with a score of ${d.riskScore}/100 (confidence ${confText(d.confidence)}, data quality ${d.dataQuality}).`
+
   if (key === 'cardiovascular') {
-    const noHr = (d.metrics ?? []).some((m) => m.key === 'heartRate' && m.value === null)
-    if (noHr) {
-      bullets.push('Heart rate and HRV: no data source is connected, so they are not shown. The biomarkers here are blood research values, not heart-rate readings.')
+    if (d.source === 'SIMULATED_DEMO') {
+      bullets.push('Resting heart rate and HRV here are SIMULATED_DEMO values. No real measurement source is connected yet.')
     }
+    bullets.push('NASA OSD-575 gives blood research biomarkers as context only. It does not contain continuous heart-rate readings.')
+  }
+  if (key === 'radiation' && d.cumulativeDoseMsv != null) {
+    bullets.push(`Cumulative dose in the demo data: ${d.cumulativeDoseMsv} mSv (only compatible units are summed).`)
   }
   return { text, bullets, source: d.source }
 }
@@ -43,7 +56,7 @@ function explainAlerts(state) {
     return `${a.title}: ${a.message}${why ? ` Contributing: ${why}.` : ''}`
   })
   return {
-    text: `There are ${alerts.length} active alerts. Each one comes from a configurable demonstration rule, not a clinical limit:`,
+    text: `There are ${alerts.length} active alerts. Each one comes from a configurable demonstration rule against your own baseline, not a clinical limit:`,
     bullets,
     source: alerts[0].source,
   }
@@ -51,6 +64,7 @@ function explainAlerts(state) {
 
 export const SUGGESTIONS = [
   'Why is there an alert?',
+  'What should I do?',
   'How is my sleep?',
   'What about radiation?',
   'How is my heart data?',
@@ -106,23 +120,7 @@ export function answerQuestion(question, state, online = true) {
     return describeDomain('musculoskeletal', state.domains?.musculoskeletal)
   }
 
-  if (has(q, ['alert', 'warning', 'why', 'contribut', 'factor', 'cause'])) {
-    return explainAlerts(state)
-  }
-
-  if (has(q, ['overall', 'status', 'risk', 'summary', 'how am i'])) {
-    const o = state.overall
-    if (!o) return { text: 'No overall status is available yet.', bullets: [] }
-    return {
-      text: `Overall status is "${o.status}" with a risk score of ${o.riskScore}/100 (confidence ${confText(o.confidence)}). ${o.summary ?? ''}`,
-      bullets: Object.entries(state.domains ?? {}).map(
-        ([k, d]) => `${DOMAIN_LABEL[k]}: ${d.riskScore == null ? 'no data' : `${d.status}, ${d.riskScore}/100`}`,
-      ),
-      source: o.source,
-    }
-  }
-
-    if (has(q, ['what should', 'advice', 'recommend', 'next step', 'wellness', 'help'])) {
+  if (has(q, ['what should', 'advice', 'recommend', 'next step', 'wellness', 'help'])) {
     const steps = (state.alerts ?? []).filter((a) => a.nextStep)
     if (steps.length > 0) {
       return {
@@ -139,6 +137,23 @@ export function answerQuestion(question, state, online = true) {
         'Log exercise so Muscle & Bone is not left at "no data".',
         'If you feel unwell, follow the mission\'s approved procedures and contact the flight surgeon.',
       ],
+    }
+  }
+
+  if (has(q, ['alert', 'warning', 'why', 'contribut', 'factor', 'cause'])) {
+    return explainAlerts(state)
+  }
+
+  if (has(q, ['overall', 'status', 'risk', 'summary', 'how am i'])) {
+    const o = state.overall
+    if (!o) return { text: 'No overall status is available yet.', bullets: [] }
+    return {
+      text: `Overall status is "${STATUS_WORD[o.status] ?? o.status}" with a risk score of ${o.riskScore ?? 'n/a'}/100 (confidence ${confText(o.confidence)}). ${o.summary ?? ''}`,
+      bullets: Object.entries(state.domains ?? {}).map(
+        ([k, d]) =>
+          `${DOMAIN_LABEL[k]}: ${d.riskScore == null ? 'no data' : `${STATUS_WORD[d.status] ?? d.status}, ${d.riskScore}/100`}`,
+      ),
+      source: o.source,
     }
   }
 

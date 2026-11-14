@@ -17,12 +17,7 @@ export default function AlertCard({ alert }) {
         <div className="min-w-0 flex-1">
           <h4 className="text-sm font-semibold text-white">{alert.title}</h4>
           <p className="mt-1 text-sm text-ice">{alert.message}</p>
-          {alert.nextStep && (
-            <p className="mt-2 text-sm text-white">
-              <span className="font-semibold text-mission-yellow">Suggested next step: </span>
-              {alert.nextStep}
-            </p>
-          )}
+
           {alert.contributingFactors?.length > 0 && (
             <ul className="mt-2 list-disc pl-5 text-xs text-ice/80">
               {alert.contributingFactors.map((f, i) => (
@@ -30,13 +25,22 @@ export default function AlertCard({ alert }) {
               ))}
             </ul>
           )}
+
+          {alert.nextStep && (
+            <p className="mt-2 text-sm text-white">
+              <span className="font-semibold text-mission-yellow">Suggested next step: </span>
+              {alert.nextStep}
+            </p>
+          )}
+
           <div className="mt-2 flex items-center gap-2">
             <SourceTag source={alert.source} />
             <time className="text-xs text-ice/60">{new Date(alert.timestamp).toLocaleString()}</time>
-            {alert.disclaimer && (
-              <p className="mt-2 text-[11px] text-ice/50">{alert.disclaimer}</p>
-          )}
           </div>
+
+          {alert.disclaimer && (
+            <p className="mt-2 text-[11px] text-ice/50">{alert.disclaimer}</p>
+          )}
         </div>
       </div>
     </article>

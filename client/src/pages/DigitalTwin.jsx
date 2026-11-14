@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import Card from '../components/ui/Card'
 import DemoBanner from '../components/ui/DemoBanner'
 import { LoadingState, ErrorState, EmptyState } from '../components/ui/StateViews'
-import TwinStage from '../components/twin/TwinStage'
+import TwinHero from '../components/twin/TwinHero'
 import RegionDetailPanel from '../components/twin/RegionDetailPanel'
 import useAsync from '../hooks/useAsync'
 import { getAstronautState } from '../services/api'
@@ -22,9 +22,9 @@ export default function DigitalTwin() {
   return (
     <div className="space-y-5">
       <DemoBanner />
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid gap-4 2xl:grid-cols-[1fr_440px]">
         <Card title="Astronaut body map" className="hero-stage">
-          <TwinStage regions={data.bodyRegions} selected={selected} onSelect={setSelected} />
+          <TwinHero regions={data.bodyRegions} selected={selected} onSelect={setSelected} />
         </Card>
         <RegionDetailPanel regionKey={selected} regions={data.bodyRegions} domains={data.domains} />
       </div>

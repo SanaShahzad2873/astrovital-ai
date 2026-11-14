@@ -69,7 +69,39 @@ export default function AstronautTwin({ regions = {}, selected, onSelect }) {
 
   return (
     <div ref={wrapRef} className="relative w-full">
-      <svg viewBox="0 0 300 440" className="h-auto w-full" role="group" aria-label="Interactive astronaut body map">
+      <svg
+        viewBox="0 0 300 440"
+        className="h-auto w-full overflow-visible"
+        role="group"
+        aria-label="Interactive astronaut body map"
+      >
+        <defs>
+          <linearGradient id="at-suit" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#FFFFFF" />
+            <stop offset="100%" stopColor="#BFD0E6" />
+          </linearGradient>
+          <radialGradient id="at-helmet" cx="35%" cy="28%" r="85%">
+            <stop offset="0%" stopColor="#FFFFFF" />
+            <stop offset="65%" stopColor="#E3ECF7" />
+            <stop offset="100%" stopColor="#A9BDD8" />
+          </radialGradient>
+          <linearGradient id="at-visor" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#17407F" />
+            <stop offset="100%" stopColor="#061A35" />
+          </linearGradient>
+          <linearGradient id="at-pack" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#1650B8" />
+            <stop offset="100%" stopColor="#0B3D91" />
+          </linearGradient>
+          <filter id="at-glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="2.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
         <motion.g
           animate={reduceMotion ? undefined : { y: [0, -5, 0] }}
           transition={{ duration: 3.4, repeat: Infinity, ease: 'easeInOut' }}
@@ -77,36 +109,39 @@ export default function AstronautTwin({ regions = {}, selected, onSelect }) {
           {/* ===== Layer 1: suit artwork (not clickable) ===== */}
           <g pointerEvents="none" aria-hidden="true">
             {/* backpack */}
-            <rect x="60" y="214" width="180" height="96" rx="28" fill={BLUE} stroke={INK} strokeWidth="2.5" />
+            <rect x="58" y="214" width="184" height="98" rx="28" fill="url(#at-pack)" stroke={INK} strokeWidth="2.5" />
+            <rect x="70" y="226" width="14" height="40" rx="7" fill="#FFFFFF" opacity="0.18" />
             {/* body parts */}
             {body.map((key) => {
               const s = SHAPES[key]
               const Tag = s.tag
-              return <Tag key={key} {...s.props} fill="#FFFFFF" stroke={INK} strokeWidth="2.5" strokeLinejoin="round" />
+              return (
+                <Tag key={key} {...s.props} fill="url(#at-suit)" stroke={INK} strokeWidth="2.5" strokeLinejoin="round" />
+              )
             })}
             {/* boots */}
-            <rect x="102" y="394" width="48" height="28" rx="14" fill="#FFFFFF" stroke={INK} strokeWidth="2.5" />
-            <rect x="150" y="394" width="48" height="28" rx="14" fill="#FFFFFF" stroke={INK} strokeWidth="2.5" />
+            <rect x="102" y="394" width="48" height="28" rx="14" fill="url(#at-suit)" stroke={INK} strokeWidth="2.5" />
+            <rect x="150" y="394" width="48" height="28" rx="14" fill="url(#at-suit)" stroke={INK} strokeWidth="2.5" />
             <rect x="106" y="414" width="40" height="8" rx="4" fill={BLUE} />
             <rect x="154" y="414" width="40" height="8" rx="4" fill={BLUE} />
             {/* gloves */}
             <circle cx="77" cy="318" r="14" fill={ICE} stroke={INK} strokeWidth="2.5" />
             <circle cx="223" cy="318" r="14" fill={ICE} stroke={INK} strokeWidth="2.5" />
             {/* helmet */}
-            <circle cx="150" cy="118" r="98" fill="#FFFFFF" stroke={INK} strokeWidth="3" />
-            <circle cx="150" cy="118" r="88" fill="none" stroke={ICE} strokeWidth="3" opacity="0.8" />
+            <circle cx="150" cy="118" r="98" fill="url(#at-helmet)" stroke={INK} strokeWidth="3" />
+            <circle cx="150" cy="118" r="88" fill="none" stroke="#FFFFFF" strokeWidth="2" opacity="0.7" />
             {/* ear caps */}
-            <circle cx="52" cy="122" r="14" fill={BLUE} stroke={INK} strokeWidth="2.5" />
-            <circle cx="248" cy="122" r="14" fill={BLUE} stroke={INK} strokeWidth="2.5" />
+            <circle cx="52" cy="122" r="14" fill="url(#at-pack)" stroke={INK} strokeWidth="2.5" />
+            <circle cx="248" cy="122" r="14" fill="url(#at-pack)" stroke={INK} strokeWidth="2.5" />
             {/* neck ring */}
-            <rect x="116" y="208" width="68" height="16" rx="8" fill={BLUE} stroke={INK} strokeWidth="2.5" />
+            <rect x="116" y="208" width="68" height="16" rx="8" fill="url(#at-pack)" stroke={INK} strokeWidth="2.5" />
           </g>
 
           {/* ===== Layer 2: clickable regions ===== */}
           {Object.entries(SHAPES).map(([key, shape]) => {
             const status = regions[key]?.status ?? 'unknown'
+            const known = status !== 'unknown'
             const color = STATUS_COLOR[status] ?? STATUS_COLOR.unknown
-            const isUnknown = status === 'unknown'
             const isSelected = selected === key
             const Tag = shape.tag
             return (
@@ -130,26 +165,36 @@ export default function AstronautTwin({ regions = {}, selected, onSelect }) {
               >
                 <Tag
                   {...shape.props}
-                  fill={isUnknown ? '#8FA3BF' : color}
-                  fillOpacity={isUnknown ? 0.2 : 0.4}
-                  stroke={isSelected ? YELLOW : isUnknown ? '#8FA3BF' : color}
-                  strokeWidth={isSelected ? 4 : 3}
+                  fill={known ? color : ICE}
+                  fillOpacity={isSelected || hover?.key === key ? 0.2 : known ? 0.06 : 0}
+                  stroke={isSelected ? YELLOW : known ? color : hover?.key === key ? ICE : 'transparent'}
+                  strokeWidth={isSelected ? 4 : known ? 2.5 : 1.5}
                   strokeLinejoin="round"
-                  strokeDasharray={isUnknown ? '6 4' : undefined}
+                  filter={known ? 'url(#at-glow)' : undefined}
                 />
               </g>
             )
           })}
 
-          {/* ===== Layer 3: face and suit details (drawn on top, not clickable) ===== */}
+          {/* ===== Layer 3: face and suit details (on top, not clickable) ===== */}
           <g pointerEvents="none" aria-hidden="true">
+            {/* antenna */}
+            <line x1="150" y1="21" x2="150" y2="12" stroke={INK} strokeWidth="3" strokeLinecap="round" />
+            <circle cx="150" cy="8" r="5" fill={YELLOW} stroke={INK} strokeWidth="2">
+              {!reduceMotion && (
+                <animate attributeName="opacity" values="1;0.35;1" dur="1.6s" repeatCount="indefinite" />
+              )}
+            </circle>
+
             {/* helmet stripe */}
-            <path d="M112 38 Q150 22 188 38" stroke={YELLOW} strokeWidth="7" fill="none" strokeLinecap="round" />
+            <path d="M112 40 Q150 24 188 40" stroke={YELLOW} strokeWidth="7" fill="none" strokeLinecap="round" />
+
             {/* visor */}
-            <ellipse cx="150" cy="124" rx="72" ry="60" fill={INK} stroke={BLUE} strokeWidth="6" />
+            <ellipse cx="150" cy="124" rx="72" ry="60" fill="url(#at-visor)" stroke={BLUE} strokeWidth="6" />
             <path d="M104 100 Q112 78 140 72" stroke="#FFFFFF" strokeWidth="7" fill="none" strokeLinecap="round" opacity="0.9" />
             <circle cx="160" cy="74" r="3.5" fill="#FFFFFF" opacity="0.9" />
             <circle cx="112" cy="116" r="2.5" fill="#FFFFFF" opacity="0.8" />
+
             {/* face */}
             <ellipse cx="128" cy="126" rx="7" ry="8" fill={ICE}>
               {!reduceMotion && (
@@ -171,6 +216,7 @@ export default function AstronautTwin({ regions = {}, selected, onSelect }) {
             <circle cx="122" cy="246" r="12" fill={BLUE} stroke={ICE} strokeWidth="2" />
             <text x="122" y="250" textAnchor="middle" fontSize="10" fontWeight="700" fill="#FFFFFF" fontFamily="Barlow Condensed, sans-serif">AV</text>
             <circle cx="176" cy="246" r="7" fill={YELLOW} stroke={INK} strokeWidth="2" />
+
             {/* control panel */}
             <rect x="134" y="266" width="32" height="10" rx="5" fill={INK} />
             <circle cx="142" cy="271" r="2.5" fill="var(--color-status-optimal)" />
@@ -182,12 +228,12 @@ export default function AstronautTwin({ regions = {}, selected, onSelect }) {
             <path d="M210 298 Q224 306 237 298" stroke={BLUE} strokeWidth="5" fill="none" strokeLinecap="round" />
 
             {/* belt */}
-            <rect x="100" y="312" width="100" height="12" rx="6" fill={BLUE} stroke={INK} strokeWidth="2" />
+            <rect x="100" y="312" width="100" height="12" rx="6" fill="url(#at-pack)" stroke={INK} strokeWidth="2" />
             <rect x="142" y="311" width="16" height="14" rx="3" fill={YELLOW} stroke={INK} strokeWidth="2" />
 
             {/* knee seams */}
-            <path d="M110 366 Q127 372 144 366" stroke={INK} strokeWidth="2" fill="none" opacity="0.45" />
-            <path d="M156 366 Q173 372 190 366" stroke={INK} strokeWidth="2" fill="none" opacity="0.45" />
+            <path d="M110 366 Q127 372 144 366" stroke={INK} strokeWidth="2" fill="none" opacity="0.4" />
+            <path d="M156 366 Q173 372 190 366" stroke={INK} strokeWidth="2" fill="none" opacity="0.4" />
           </g>
 
           {/* ===== Animated hotspots ===== */}

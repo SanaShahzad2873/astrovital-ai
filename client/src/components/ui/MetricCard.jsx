@@ -33,6 +33,8 @@ export default function MetricCard({
 
   const footText = footnote ? footnote.replace(/^data:/i, 'Data quality:') : null
   const pct = missing ? 0 : Math.max(0, Math.min(100, Number(value)))
+  // The bar shows a 0-100 score. It must not be used for values like bpm or ms.
+  const showBar = !unit || unit === '/100'
 
   const body = (
     <div className="glass-card group relative flex h-full flex-col overflow-hidden p-5 transition duration-200 hover:border-white/25">
@@ -83,25 +85,27 @@ export default function MetricCard({
         </div>
 
         {hasTrend && (
-          <div className="h-14 w-28 shrink-0">
+          <div className="h-14 w-24 shrink-0">
             <Sparkline data={history} color={color} />
           </div>
         )}
       </div>
 
-      {/* score bar: how full the 0-100 scale is */}
-      <div className="mt-5" role="img" aria-label={missing ? 'No score' : `Score ${pct} out of 100`}>
-        <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/[0.08]">
-          <div
-            className="h-full rounded-full"
-            style={{
-              width: `${pct}%`,
-              background: `linear-gradient(90deg, color-mix(in srgb, ${color} 55%, transparent), ${color})`,
-              boxShadow: missing ? 'none' : `0 0 10px ${color}`,
-            }}
-          />
+      {/* score bar: only for 0-100 scores, never for bpm / ms values */}
+      {showBar && (
+        <div className="mt-5" role="img" aria-label={missing ? 'No score' : `Score ${pct} out of 100`}>
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/[0.08]">
+            <div
+              className="h-full rounded-full"
+              style={{
+                width: `${pct}%`,
+                background: `linear-gradient(90deg, color-mix(in srgb, ${color} 55%, transparent), ${color})`,
+                boxShadow: missing ? 'none' : `0 0 10px ${color}`,
+              }}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       {/* quiet footer */}
       <div className="mt-3 flex min-h-[18px] flex-wrap items-center gap-2">

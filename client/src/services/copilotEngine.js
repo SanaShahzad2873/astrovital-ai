@@ -122,12 +122,20 @@ export function answerQuestion(question, state, online = true) {
     }
   }
 
-  if (has(q, ['what should', 'advice', 'recommend', 'next step', 'wellness', 'help'])) {
+    if (has(q, ['what should', 'advice', 'recommend', 'next step', 'wellness', 'help'])) {
+    const steps = (state.alerts ?? []).filter((a) => a.nextStep)
+    if (steps.length > 0) {
+      return {
+        text: 'Suggested next steps from the active alerts (prototype demonstration rules, not medical advice):',
+        bullets: steps.map((a) => `${a.title}: ${a.nextStep}`),
+        source: steps[0].source,
+      }
+    }
     return {
-      text: 'General wellness steps (prototype placeholder; Member 1 should replace these with approved reference guidance):',
+      text: 'No active alerts. General prototype steps:',
       bullets: [
-        'Save a check-in so your mood, fatigue and stress trends have more data.',
-        'Complete the reaction-time test so cognitive confidence improves.',
+        'Keep saving daily check-ins so your personal baseline gets stronger.',
+        'Complete the reaction-time test when it is available.',
         'Log exercise so Muscle & Bone is not left at "no data".',
         'If you feel unwell, follow the mission\'s approved procedures and contact the flight surgeon.',
       ],

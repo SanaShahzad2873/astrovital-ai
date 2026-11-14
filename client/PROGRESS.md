@@ -49,3 +49,5 @@ tailwindcss + @tailwindcss/vite, @fontsource/barlow, barlow-condensed, ibm-plex-
 1. `cd client && npm install && npm run dev` (opens http://localhost:5173)
 2. All screens read data only through `src/services/api.js`. Do not hardcode health values in pages.
 3. Source labels must be one of NASA_RESEARCH, MEASURED, SELF_REPORTED, SIMULATED_DEMO.
+- Design v3: HUD-style panels (index.css), chibi astronaut twin (SVG), new TwinStage, Command Center re-layout
+- Files modified: index.css, AstronautTwin.jsx, TwinStage.jsx, CommandCenter.jsx

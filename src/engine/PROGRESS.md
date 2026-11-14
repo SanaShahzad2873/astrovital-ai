@@ -1,48 +1,49 @@
-# PROGRESS.md — Member (Intelligence Engine / OSD-575)
+# PROGRESS.md: Intelligence Engine (OSD-575 + health fusion)
 
 ## Completed
-- Personal baseline engine (median, MAD, robust z-score, baseline confidence)
-- Anomaly detector (robust z, EWMA, CUSUM, persistence)
-- 10 unit tests (all passing)
-- OSD-575 runner: real NASA cardiovascular biomarker panel, 9 analytes x 4 astronauts
-- log10 comparison with an absolute spread floor, and exclusion of suspicious repeated values (original values preserved)
+- Personal baseline engine: median, MAD, robust z-score, baseline confidence
+- Anomaly detection: robust z, EWMA, CUSUM, persistence, direction-aware
+- OSD-575 run on real NASA cardiovascular biomarkers (9 analytes x 4 astronauts), compared on a log10 scale
+- Handling of suspicious repeated values (haptoglobin 17,907,000 ng/ml appears 7 times; cause unverified), original values preserved
+- Seeded SIMULATED_DEMO sleep and exercise simulators
+- Risk fusion across 4 domains; missing data is never healthy (`unknown` / `incomplete`)
+- Digital twin body-region mapping (proposed)
+- One-call demo builder `buildDemoState()` and single entry point `index.js`
+- INTEGRATION.md for teammates
+- 38 automated tests, all passing
 
 ## Current work
-- Reviewing OSD-575 results and data-quality flags
+- Handover to the integration member
 
-## Files
-- src/engine/baselineEngine.js
-- src/engine/anomalyDetector.js
-- src/engine/__tests__/engine.test.js
-- src/engine/runOsd575.js
-- src/data/nasa/raw/LSDS-8_Multiplex_serum.cardiovascular.EvePanel_SUBMITTED.csv (input)
-- src/data/nasa/osd575_cardio_analysis.json (generated output)
+## Files (src/engine/)
+baselineEngine.js, anomalyDetector.js, riskFusion.js, twinMapping.js, sleepSimulator.js,
+exerciseSimulator.js, demoScenario.js, index.js, runOsd575.js (Node only), runFusion.js (Node only),
+INTEGRATION.md, PROGRESS.md, __tests__/ (7 test files)
+Data: src/data/nasa/raw/*.csv (input), osd575_cardio_analysis.json, fusion_demo.json (generated)
 
 ## Dependencies
-- None. Plain JavaScript (ES modules). Needs "type": "module" in package.json.
+None. Plain JavaScript (ES modules). Needs "type": "module" wherever tests run.
 
-## API contract
-`analyzeSeries({ observations, baselineValues, meta, config?, baselineConfig? })`
-- observations: [{ label, value }]  (value may be null)
-- baselineValues: number[] (the person's own earlier values)
-- meta: { signal, unit, direction: 'both'|'low'|'high', sourceLabel, datasetId }
-- returns: { signal, unit, status ('normal'|'attention'|'high'|'unknown'), confidence,
-  baseline, points, detectors, contributingFactors[], dataQuality, sourceLabel,
-  datasetId, timestamp, thresholdsNote }
-- 'unknown' means no usable baseline. It never means healthy.
+## API contracts
+See INTEGRATION.md section 4. Core function:
+`analyzeSeries({ observations:[{label,value}], baselineValues:number[], meta:{signal,unit,direction,sourceLabel,datasetId} })`
+Statuses: normal | attention | high | unknown (overall also: incomplete).
 
 ## Pending
-- Find out why haptoglobin 17,907,000 ng/ml repeats 7 times (cause unverified; not the maximum, so not a proven ceiling)
-- sleepSimulator.js (SIMULATED_DEMO, seeded)
-- riskFusion.js (combine the four domains)
+- Radiation module results in analyzeSeries format (Member 1 radiation module)
+- Connect engine to the real app, copy engine into client/ and test in Vite (integration member)
+- Confirm twin mapping with the digital twin owner
+- Replace simulated sleep/exercise with real check-in data where available
+- Investigate the repeated haptoglobin value if the dataset documentation can be found
 
 ## Known issues / honesty notes
-- Baseline = 3 preflight samples, so confidence is LOW
-- Cardiovascular panel = blood biomarkers, NOT heart rate or HRV
+- NASA baseline = 3 preflight samples per astronaut, so confidence is LOW
+- Cardiovascular panel = research blood biomarkers, NOT heart rate or HRV
 - Results are deviations from a personal baseline, NOT diagnoses
-- Thresholds are configurable demonstration rules, not clinical limits
-- Haptoglobin for C003 and C004 is 'unknown' because most of their values are the suspicious repeated value
+- Thresholds, floors, targets and baseline windows are configurable demonstration rules, not clinical limits
+- Haptoglobin for C003 and C004 is `unknown` because most of their values are the suspicious repeated value
+- Sleep and exercise are SIMULATED_DEMO; exercise logs do not measure bone density or muscle mass
+- The engine has not yet been tested inside client/ (Vite)
 
-## Integration
-- Import analyzeSeries from src/engine/anomalyDetector.js
-- Run `node src/engine/runOsd575.js` to regenerate the JSON
+## Integration instructions
+Read INTEGRATION.md. Import only from engine/index.js.

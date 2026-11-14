@@ -51,10 +51,8 @@ function explainAlerts(state) {
   if (alerts.length === 0) {
     return { text: 'There are no active alerts right now.', bullets: [] }
   }
-  const bullets = alerts.map((a) => {
-    const why = (a.contributingFactors ?? []).map((f) => `${f.label} (${f.detail})`).join('; ')
-    return `${a.title}: ${a.message}${why ? ` Contributing: ${why}.` : ''}`
-  })
+  // The engine's message already lists the contributing signals, so it is shown once.
+  const bullets = alerts.map((a) => `${a.title}. ${a.message}`)
   return {
     text: `There are ${alerts.length} active alerts. Each one comes from a configurable demonstration rule against your own baseline, not a clinical limit:`,
     bullets,

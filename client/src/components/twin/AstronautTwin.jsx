@@ -3,39 +3,44 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { REGION_LABELS } from '../../config/bodyRegions'
 import { STATUS_COLOR, STATUS_TEXT } from '../../config/status'
 
-// Drawn in a 300 x 560 space. "Left" = the astronaut's own left (right side of screen).
+// Cute chibi astronaut, drawn in a 300 x 440 space.
+// "Left" = the astronaut's own left (right side of the screen).
+const INK = '#061A35'
+const BLUE = '#0B3D91'
+const ICE = '#DCE6F1'
+const YELLOW = '#FFD100'
+
 const SHAPES = {
   head: {
-    tag: 'ellipse', props: { cx: 150, cy: 68, rx: 52, ry: 56 }, center: [150, 68],
+    tag: 'circle', props: { cx: 150, cy: 118, r: 98 }, center: [150, 46],
   },
   chest: {
-    tag: 'path', center: [150, 186],
-    props: { d: 'M92 152 Q92 136 110 134 L190 134 Q208 136 208 152 L204 230 Q204 237 196 237 L104 237 Q96 237 96 230 Z' },
+    tag: 'path', center: [150, 238],
+    props: { d: 'M104 222 Q104 216 112 216 L188 216 Q196 216 196 222 L200 290 L100 290 Z' },
   },
   abdomen: {
-    tag: 'path', center: [150, 278],
-    props: { d: 'M100 241 L200 241 L196 302 Q195 313 184 314 L116 314 Q105 313 104 302 Z' },
+    tag: 'path', center: [150, 303],
+    props: { d: 'M100 290 L200 290 L196 328 Q195 334 188 334 L112 334 Q105 334 104 328 Z' },
   },
   rightArm: {
-    tag: 'path', center: [68, 230],
-    props: { d: 'M84 146 Q54 148 50 178 L40 288 Q38 304 54 306 L76 306 Q90 304 92 290 L90 190 Z' },
+    tag: 'path', center: [78, 268],
+    props: { d: 'M98 232 Q74 228 64 254 Q56 276 61 300 Q63 312 76 312 Q88 312 90 300 L96 262 Z' },
   },
   leftArm: {
-    tag: 'path', center: [232, 230],
-    props: { d: 'M216 146 Q246 148 250 178 L260 288 Q262 304 246 306 L224 306 Q210 304 208 290 L210 190 Z' },
+    tag: 'path', center: [222, 268],
+    props: { d: 'M202 232 Q226 228 236 254 Q244 276 239 300 Q237 312 224 312 Q212 312 210 300 L204 262 Z' },
   },
   rightLeg: {
-    tag: 'path', center: [124, 415],
-    props: { d: 'M104 318 L148 318 L144 430 L142 500 Q142 512 130 512 L112 512 Q104 512 104 500 L100 430 Z' },
+    tag: 'path', center: [127, 364],
+    props: { d: 'M106 334 L148 334 L146 394 Q146 402 138 402 L116 402 Q108 402 108 394 Z' },
   },
   leftLeg: {
-    tag: 'path', center: [176, 415],
-    props: { d: 'M196 318 L152 318 L156 430 L158 500 Q158 512 170 512 L188 512 Q196 512 196 500 L200 430 Z' },
+    tag: 'path', center: [173, 364],
+    props: { d: 'M194 334 L152 334 L154 394 Q154 402 162 402 L184 402 Q192 402 192 394 Z' },
   },
 }
 
 const PULSING = ['attention', 'risk', 'fatigue', 'radiation']
-const SOFT = 'rgba(220,230,241,0.3)'
 
 export function TwinLegend() {
   return (
@@ -60,103 +65,198 @@ export default function AstronautTwin({ regions = {}, selected, onSelect }) {
     setHover({ key, x: e.clientX - box.left, y: e.clientY - box.top })
   }
 
+  const body = ['rightLeg', 'leftLeg', 'rightArm', 'leftArm', 'abdomen', 'chest']
+
   return (
     <div ref={wrapRef} className="relative w-full">
-      <svg viewBox="0 0 300 560" className="h-auto w-full" role="group" aria-label="Interactive astronaut body map">
-        {/* Backpack (decoration) */}
-        <g pointerEvents="none" aria-hidden="true">
-          <rect x="80" y="128" width="140" height="132" rx="18"
-            fill="var(--color-panel-raised)" stroke="rgba(220,230,241,0.22)" />
-          <rect x="70" y="150" width="14" height="60" rx="6" fill="rgba(220,230,241,0.18)" />
-          <rect x="216" y="150" width="14" height="60" rx="6" fill="rgba(220,230,241,0.18)" />
-        </g>
+      <svg
+        viewBox="0 0 300 440"
+        className="h-auto w-full overflow-visible"
+        role="group"
+        aria-label="Interactive astronaut body map"
+      >
+        <defs>
+          <linearGradient id="at-suit" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#FFFFFF" />
+            <stop offset="100%" stopColor="#BFD0E6" />
+          </linearGradient>
+          <radialGradient id="at-helmet" cx="35%" cy="28%" r="85%">
+            <stop offset="0%" stopColor="#FFFFFF" />
+            <stop offset="65%" stopColor="#E3ECF7" />
+            <stop offset="100%" stopColor="#A9BDD8" />
+          </radialGradient>
+          <linearGradient id="at-visor" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#17407F" />
+            <stop offset="100%" stopColor="#061A35" />
+          </linearGradient>
+          <linearGradient id="at-pack" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#1650B8" />
+            <stop offset="100%" stopColor="#0B3D91" />
+          </linearGradient>
+          <filter id="at-glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="2.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
 
-        {/* Clickable regions */}
-        {Object.entries(SHAPES).map(([key, shape]) => {
-          const status = regions[key]?.status ?? 'unknown'
-          const color = STATUS_COLOR[status] ?? STATUS_COLOR.unknown
-          const isSelected = selected === key
-          const Tag = shape.tag
-          return (
-            <g
-              key={key}
-              role="button"
-              tabIndex={0}
-              aria-label={`${REGION_LABELS[key]}: ${STATUS_TEXT[status]}`}
-              aria-pressed={isSelected}
-              style={{ cursor: 'pointer' }}
-              onClick={() => onSelect?.(key)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault()
-                  onSelect?.(key)
-                }
-              }}
-              onMouseEnter={(e) => track(e, key)}
-              onMouseMove={(e) => track(e, key)}
-              onMouseLeave={() => setHover(null)}
-            >
-              <Tag
-                {...shape.props}
-                fill={color}
-                fillOpacity={status === 'unknown' ? 0.14 : 0.32}
-                stroke={isSelected ? 'var(--color-mission-yellow)' : color}
-                strokeWidth={isSelected ? 4 : 2}
-                strokeLinejoin="round"
-                strokeDasharray={status === 'unknown' ? '6 4' : undefined}
-              />
-            </g>
-          )
-        })}
+        <motion.g
+          animate={reduceMotion ? undefined : { y: [0, -5, 0] }}
+          transition={{ duration: 3.4, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          {/* ===== Layer 1: suit artwork (not clickable) ===== */}
+          <g pointerEvents="none" aria-hidden="true">
+            {/* backpack */}
+            <rect x="58" y="214" width="184" height="98" rx="28" fill="url(#at-pack)" stroke={INK} strokeWidth="2.5" />
+            <rect x="70" y="226" width="14" height="40" rx="7" fill="#FFFFFF" opacity="0.18" />
+            {/* body parts */}
+            {body.map((key) => {
+              const s = SHAPES[key]
+              const Tag = s.tag
+              return (
+                <Tag key={key} {...s.props} fill="url(#at-suit)" stroke={INK} strokeWidth="2.5" strokeLinejoin="round" />
+              )
+            })}
+            {/* boots */}
+            <rect x="102" y="394" width="48" height="28" rx="14" fill="url(#at-suit)" stroke={INK} strokeWidth="2.5" />
+            <rect x="150" y="394" width="48" height="28" rx="14" fill="url(#at-suit)" stroke={INK} strokeWidth="2.5" />
+            <rect x="106" y="414" width="40" height="8" rx="4" fill={BLUE} />
+            <rect x="154" y="414" width="40" height="8" rx="4" fill={BLUE} />
+            {/* gloves */}
+            <circle cx="77" cy="318" r="14" fill={ICE} stroke={INK} strokeWidth="2.5" />
+            <circle cx="223" cy="318" r="14" fill={ICE} stroke={INK} strokeWidth="2.5" />
+            {/* helmet */}
+            <circle cx="150" cy="118" r="98" fill="url(#at-helmet)" stroke={INK} strokeWidth="3" />
+            <circle cx="150" cy="118" r="88" fill="none" stroke="#FFFFFF" strokeWidth="2" opacity="0.7" />
+            {/* ear caps */}
+            <circle cx="52" cy="122" r="14" fill="url(#at-pack)" stroke={INK} strokeWidth="2.5" />
+            <circle cx="248" cy="122" r="14" fill="url(#at-pack)" stroke={INK} strokeWidth="2.5" />
+            {/* neck ring */}
+            <rect x="116" y="208" width="68" height="16" rx="8" fill="url(#at-pack)" stroke={INK} strokeWidth="2.5" />
+          </g>
 
-        {/* Suit details (decoration, drawn on top) */}
-        <g pointerEvents="none" aria-hidden="true">
-          {/* visor */}
-          <ellipse cx="150" cy="72" rx="36" ry="30" fill="var(--color-space-navy)" stroke={SOFT} strokeWidth="2" />
-          <path d="M126 68 Q138 54 158 58" stroke="rgba(220,230,241,0.55)" strokeWidth="3" fill="none" strokeLinecap="round" />
-          {/* neck ring */}
-          <rect x="126" y="124" width="48" height="12" rx="6" fill={SOFT} />
-          {/* chest control box */}
-          <rect x="128" y="160" width="44" height="30" rx="5" fill="rgba(6,26,53,0.7)" stroke={SOFT} />
-          <circle cx="138" cy="170" r="3" fill="var(--color-mission-yellow)" />
-          <circle cx="150" cy="170" r="3" fill="var(--color-status-optimal)" />
-          <circle cx="162" cy="170" r="3" fill="var(--color-signal)" />
-          <rect x="136" y="178" width="28" height="4" rx="2" fill={SOFT} />
-          {/* waist belt */}
-          <rect x="98" y="304" width="104" height="14" rx="7" fill="rgba(220,230,241,0.22)" />
-          {/* elbow and knee seams */}
-          <line x1="46" y1="238" x2="88" y2="238" stroke={SOFT} strokeWidth="2" />
-          <line x1="212" y1="238" x2="254" y2="238" stroke={SOFT} strokeWidth="2" />
-          <line x1="104" y1="420" x2="147" y2="420" stroke={SOFT} strokeWidth="2" />
-          <line x1="153" y1="420" x2="196" y2="420" stroke={SOFT} strokeWidth="2" />
-          {/* gloves */}
-          <circle cx="64" cy="320" r="17" fill="rgba(220,230,241,0.32)" />
-          <circle cx="236" cy="320" r="17" fill="rgba(220,230,241,0.32)" />
-          {/* boots */}
-          <rect x="96" y="506" width="54" height="30" rx="13" fill="rgba(220,230,241,0.32)" />
-          <rect x="150" y="506" width="54" height="30" rx="13" fill="rgba(220,230,241,0.32)" />
-        </g>
-
-        {/* Animated hotspots */}
-        {Object.entries(SHAPES).map(([key, shape]) => {
-          const status = regions[key]?.status ?? 'unknown'
-          if (!PULSING.includes(status)) return null
-          const color = STATUS_COLOR[status]
-          const [cx, cy] = shape.center
-          return (
-            <g key={`hot-${key}`} pointerEvents="none" aria-hidden="true">
-              <circle cx={cx} cy={cy} r="7" fill={color} />
-              {!reduceMotion && (
-                <motion.circle
-                  cx={cx} cy={cy} fill="none" stroke={color} strokeWidth="2"
-                  initial={{ r: 7, opacity: 0.8 }}
-                  animate={{ r: 24, opacity: 0 }}
-                  transition={{ duration: 1.8, repeat: Infinity, ease: 'easeOut' }}
+          {/* ===== Layer 2: clickable regions ===== */}
+          {Object.entries(SHAPES).map(([key, shape]) => {
+            const status = regions[key]?.status ?? 'unknown'
+            const known = status !== 'unknown'
+            const color = STATUS_COLOR[status] ?? STATUS_COLOR.unknown
+            const isSelected = selected === key
+            const Tag = shape.tag
+            return (
+              <g
+                key={key}
+                role="button"
+                tabIndex={0}
+                aria-label={`${REGION_LABELS[key]}: ${STATUS_TEXT[status]}`}
+                aria-pressed={isSelected}
+                style={{ cursor: 'pointer' }}
+                onClick={() => onSelect?.(key)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    onSelect?.(key)
+                  }
+                }}
+                onMouseEnter={(e) => track(e, key)}
+                onMouseMove={(e) => track(e, key)}
+                onMouseLeave={() => setHover(null)}
+              >
+                <Tag
+                  {...shape.props}
+                  fill={known ? color : ICE}
+                  fillOpacity={isSelected || hover?.key === key ? 0.2 : known ? 0.06 : 0}
+                  stroke={isSelected ? YELLOW : known ? color : hover?.key === key ? ICE : 'transparent'}
+                  strokeWidth={isSelected ? 4 : known ? 2.5 : 1.5}
+                  strokeLinejoin="round"
+                  filter={known ? 'url(#at-glow)' : undefined}
                 />
+              </g>
+            )
+          })}
+
+          {/* ===== Layer 3: face and suit details (on top, not clickable) ===== */}
+          <g pointerEvents="none" aria-hidden="true">
+            {/* antenna */}
+            <line x1="150" y1="21" x2="150" y2="12" stroke={INK} strokeWidth="3" strokeLinecap="round" />
+            <circle cx="150" cy="8" r="5" fill={YELLOW} stroke={INK} strokeWidth="2">
+              {!reduceMotion && (
+                <animate attributeName="opacity" values="1;0.35;1" dur="1.6s" repeatCount="indefinite" />
               )}
-            </g>
-          )
-        })}
+            </circle>
+
+            {/* helmet stripe */}
+            <path d="M112 40 Q150 24 188 40" stroke={YELLOW} strokeWidth="7" fill="none" strokeLinecap="round" />
+
+            {/* visor */}
+            <ellipse cx="150" cy="124" rx="72" ry="60" fill="url(#at-visor)" stroke={BLUE} strokeWidth="6" />
+            <path d="M104 100 Q112 78 140 72" stroke="#FFFFFF" strokeWidth="7" fill="none" strokeLinecap="round" opacity="0.9" />
+            <circle cx="160" cy="74" r="3.5" fill="#FFFFFF" opacity="0.9" />
+            <circle cx="112" cy="116" r="2.5" fill="#FFFFFF" opacity="0.8" />
+
+            {/* face */}
+            <ellipse cx="128" cy="126" rx="7" ry="8" fill={ICE}>
+              {!reduceMotion && (
+                <animate attributeName="ry" values="8;8;1;8" keyTimes="0;0.9;0.95;1" dur="4.5s" repeatCount="indefinite" />
+              )}
+            </ellipse>
+            <ellipse cx="172" cy="126" rx="7" ry="8" fill={ICE}>
+              {!reduceMotion && (
+                <animate attributeName="ry" values="8;8;1;8" keyTimes="0;0.9;0.95;1" dur="4.5s" repeatCount="indefinite" />
+              )}
+            </ellipse>
+            <circle cx="130" cy="123" r="2" fill="#FFFFFF" />
+            <circle cx="174" cy="123" r="2" fill="#FFFFFF" />
+            <ellipse cx="112" cy="142" rx="8" ry="5" fill="#FC3D21" opacity="0.35" />
+            <ellipse cx="188" cy="142" rx="8" ry="5" fill="#FC3D21" opacity="0.35" />
+            <path d="M138 146 Q150 160 162 146" stroke={ICE} strokeWidth="4" fill="none" strokeLinecap="round" />
+
+            {/* chest patch "AV" and button */}
+            <circle cx="122" cy="246" r="12" fill={BLUE} stroke={ICE} strokeWidth="2" />
+            <text x="122" y="250" textAnchor="middle" fontSize="10" fontWeight="700" fill="#FFFFFF" fontFamily="Barlow Condensed, sans-serif">AV</text>
+            <circle cx="176" cy="246" r="7" fill={YELLOW} stroke={INK} strokeWidth="2" />
+
+            {/* control panel */}
+            <rect x="134" y="266" width="32" height="10" rx="5" fill={INK} />
+            <circle cx="142" cy="271" r="2.5" fill="var(--color-status-optimal)" />
+            <circle cx="150" cy="271" r="2.5" fill={YELLOW} />
+            <circle cx="158" cy="271" r="2.5" fill="var(--color-signal)" />
+
+            {/* wrist cuffs */}
+            <path d="M63 298 Q76 306 90 298" stroke={BLUE} strokeWidth="5" fill="none" strokeLinecap="round" />
+            <path d="M210 298 Q224 306 237 298" stroke={BLUE} strokeWidth="5" fill="none" strokeLinecap="round" />
+
+            {/* belt */}
+            <rect x="100" y="312" width="100" height="12" rx="6" fill="url(#at-pack)" stroke={INK} strokeWidth="2" />
+            <rect x="142" y="311" width="16" height="14" rx="3" fill={YELLOW} stroke={INK} strokeWidth="2" />
+
+            {/* knee seams */}
+            <path d="M110 366 Q127 372 144 366" stroke={INK} strokeWidth="2" fill="none" opacity="0.4" />
+            <path d="M156 366 Q173 372 190 366" stroke={INK} strokeWidth="2" fill="none" opacity="0.4" />
+          </g>
+
+          {/* ===== Animated hotspots ===== */}
+          {Object.entries(SHAPES).map(([key, shape]) => {
+            const status = regions[key]?.status ?? 'unknown'
+            if (!PULSING.includes(status)) return null
+            const color = STATUS_COLOR[status]
+            const [cx, cy] = shape.center
+            return (
+              <g key={`hot-${key}`} pointerEvents="none" aria-hidden="true">
+                <circle cx={cx} cy={cy} r="7" fill={color} stroke={INK} strokeWidth="2" />
+                {!reduceMotion && (
+                  <motion.circle
+                    cx={cx} cy={cy} fill="none" stroke={color} strokeWidth="2.5"
+                    initial={{ r: 7, opacity: 0.9 }}
+                    animate={{ r: 24, opacity: 0 }}
+                    transition={{ duration: 1.8, repeat: Infinity, ease: 'easeOut' }}
+                  />
+                )}
+              </g>
+            )
+          })}
+        </motion.g>
       </svg>
 
       {hover && (

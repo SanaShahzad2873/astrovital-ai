@@ -19,6 +19,21 @@ export const MOCK_STATE = {
       source: 'SIMULATED_DEMO', lastUpdated: now,
       history: h([20, 19, 21, 18, 19, 17, 18, 19, 18, 17, 18, 18]),
       contributingFactors: [{ label: 'Demo biomarker', detail: 'within personal baseline' }],
+      metrics: [
+        { key: 'crp', label: 'CRP (demo)', value: 1.8, unit: 'mg/L', status: 'optimal',
+          source: 'SIMULATED_DEMO', quality: 'limited', collectedAt: now,
+          history: h([1.4, 1.5, 1.3, 1.6, 1.7, 1.8]) },
+        { key: 'il6', label: 'IL-6 (demo)', value: 2.1, unit: 'pg/mL', status: 'optimal',
+          source: 'SIMULATED_DEMO', quality: 'limited', collectedAt: now,
+          history: h([2.4, 2.2, 2.3, 2.0, 2.2, 2.1]) },
+        // No continuous heart-rate source exists yet: must show "No Data", never "Normal"
+        { key: 'heartRate', label: 'Heart rate', value: null, unit: 'bpm', status: 'unknown',
+          source: 'SIMULATED_DEMO', quality: 'none', collectedAt: null, history: [],
+          note: 'no source connected' },
+        { key: 'hrv', label: 'HRV', value: null, unit: 'ms', status: 'unknown',
+          source: 'SIMULATED_DEMO', quality: 'none', collectedAt: null, history: [],
+          note: 'no source connected' },
+      ],
     },
     sleepCognitive: {
       status: 'fatigue', riskScore: 58, confidence: 0.7, dataQuality: 'good',
@@ -47,7 +62,7 @@ export const MOCK_STATE = {
     leftLeg:  { status: 'unknown',   domain: 'musculoskeletal', summary: 'No exercise data available yet.' },
     rightLeg: { status: 'unknown',   domain: 'musculoskeletal', summary: 'No exercise data available yet.' },
   },
-   alerts: [
+  alerts: [
     {
       id: 'al-1', domain: 'sleepCognitive', severity: 'attention',
       title: 'Sleep below personal baseline',

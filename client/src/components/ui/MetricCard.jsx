@@ -14,9 +14,10 @@ export default function MetricCard({
   // Change over the last 7 days, computed from the supplied history only
   const delta =
     history && history.length > 1
-      ? history[history.length - 1].value - history[Math.max(0, history.length - 8)].value
+     ? Number(
+          (history[history.length - 1].value - history[Math.max(0, history.length - 8)].value).toFixed(1)
+        )
       : null
-
   const body = (
     <div className="glass-card relative h-full overflow-hidden p-4 transition duration-200 hover:border-white/25 flex flex-col">
       <span className="absolute inset-x-0 top-0 h-0.5" style={{ background: color }} aria-hidden="true" />

@@ -4,12 +4,15 @@ import ComingSoon from './pages/ComingSoon'
 import CommandCenter from './pages/CommandCenter'
 import { NAV_ITEMS } from './config/navigation'
 import DigitalTwin from './pages/DigitalTwin'
+import Cardiovascular from './pages/Cardiovascular'
 
 
 const PAGES = {
   '/': <CommandCenter />,
   '/twin': <DigitalTwin />,
+  '/cardiovascular': <Cardiovascular />,
 }
+
 
 export default function App() {
   return (

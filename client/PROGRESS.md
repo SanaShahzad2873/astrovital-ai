@@ -1,68 +1,53 @@
-# PROGRESS — Member 2 (Frontend, UI/UX, 2D Digital Twin)
+# PROGRESS.md: Member 2 (Frontend, UI/UX and 2D Digital Twin)
 
-Last updated: 2026-11-14
-Branch: feature/frontend-ui
+Branch: `feature/frontend-ui`  |  Last updated: 2026-11-15
 
-## Completed
-- Vite + React (JavaScript) project created in `client/`
-- Tailwind CSS v4 with the shared NASA-inspired design tokens (`src/index.css`)
-- Fonts bundled offline (Barlow, Barlow Condensed) so Blackout Mode works without internet
-- App shell: Sidebar, Header, responsive mobile menu
-- React Router with all 10 screens (placeholders for now)
-- Reusable components: Card, StatusBadge
-- Online/Offline indicator in the header (real browser connection state)
+## Completed work
+- Vite + React 19 + Tailwind v4 (`@tailwindcss/vite`) project in `client/`
+- NASA-inspired design system in `src/index.css` (`@theme` colors, fonts, `.glass-card`, `.eyebrow`, `.num`)
+- Layout shell: `AppShell`, `Header`, `Sidebar`, routing for all 10 screens (`config/navigation.js`)
+- Reusable UI: `Card`, `MetricCard`, `StatusBadge`, `SourceTag`, `AlertCard`, `RiskGauge`, `DemoBanner`, `OrbitMark`, `StateViews` (loading/error/empty)
+- Charts: `RiskTrendChart`, `Sparkline` (Recharts)
+- Panels: `MissionProgressCard`, `EarthLinkCard`, `EventTimeline`
+- 2D SVG astronaut twin: `AstronautTwin`, `TwinStage`, `RegionList`, `RegionDetailPanel`
+- Pages: Command Center, Digital Twin, Cardiovascular (via shared `DomainPage`)
+- Frontend API service with mock mode (`services/api.js`, `services/mockData.js`)
 
 ## Current work
-- Milestone 2: SourceTag, MetricCard, mock API service, SVG astronaut twin
+- Cardiovascular screen: verifying that `metrics` render (CRP, IL-6, Heart rate, HRV)
+- Next: Brain & Sleep (with reaction-time test), then Radiation, Muscle & Bone
 
 ## Files created / modified
-- `client/vite.config.js` (added Tailwind plugin)
-- `client/src/index.css` (design tokens, base styles)
-- `client/src/main.jsx`, `client/src/App.jsx`
-- `client/src/config/navigation.js`
-- `client/src/components/layout/AppShell.jsx`
-- `client/src/components/layout/Sidebar.jsx`
-- `client/src/components/layout/Header.jsx`
-- `client/src/components/ui/Card.jsx`
-- `client/src/components/ui/StatusBadge.jsx`
-- `client/src/pages/ComingSoon.jsx`
+- `src/pages/DomainPage.jsx` (shared layout for the 4 health-domain screens)
+- `src/pages/Cardiovascular.jsx`
+- `src/App.jsx` (added `/cardiovascular` route)
+- `src/services/mockData.js` (added `domains.cardiovascular.metrics`)
 
 ## Dependencies
 react, react-dom, react-router-dom, recharts, framer-motion, lucide-react,
-tailwindcss, @tailwindcss/vite, @fontsource/barlow, @fontsource/barlow-condensed
+tailwindcss + @tailwindcss/vite, @fontsource/barlow, barlow-condensed, ibm-plex-mono
 
-## Design system (everyone must follow)
-Use token class names only, never raw hex codes:
-- Backgrounds: `bg-space-navy`, `bg-panel`, `bg-nasa-blue`
-- Highlight / active: `text-mission-yellow`
-- Secondary text: `text-ice`
-- Alerts: `text-nasa-red`
-- Status colors: `status-optimal`, `status-attention`, `status-risk`, `status-radiation`, `status-fatigue`
-- Fonts: `font-display` (headings), `font-sans` (body)
-Tokens are defined in `client/src/index.css`.
-
-## API contracts (proposed, waiting for Member 3 and 4 to confirm)
-- `GET /api/astronaut/state` -> overall status, 4 domain scores, bodyRegions, alerts
-- `GET /api/domains/:domain/timeseries` -> series with points, unit, source, datasetId
-- Status values must be exactly: optimal, attention, risk, fatigue, radiation, unknown
-- Missing data = `unknown`, never `optimal`
-- Every value has a `source`: NASA_RESEARCH, MEASURED, SELF_REPORTED, SIMULATED_DEMO
-- Backend needs CORS enabled for the frontend origin
+## API contracts (frontend expects)
+- `GET /api/astronaut/state` returns `MOCK_STATE` shape (see `mockData.js`)
+- Mock mode is on by default; set `VITE_USE_MOCK=false` and `VITE_API_URL` to use the real API
+- PROPOSED addition (needs Member 3/4 agreement): each domain gets `metrics[]`:
+  `{ key, label, value, unit, status, source, quality, collectedAt, history[{day,value}], note? }`
+- `value: null` means no data. The UI shows "No Data", never "Optimal"
 
 ## Pending tasks
-- SourceTag and MetricCard components
-- `src/services/api.js` with mock adapter (SIMULATED_DEMO)
-- SVG astronaut twin with clickable regions
-- All 10 real screens, Recharts charts
-- Modal, loading and empty states, alert cards
-- PWA and offline integration (with Member 3)
+- Brain & Sleep, Radiation, Muscle & Bone screens
+- Reaction-time test
+- AI Health Copilot, Blackout Mode, NASA Research Library, Mission Reports
+- PWA / offline integration with Member 3
+- Replace mock data with real API once endpoints exist
 
 ## Known bugs
-- None yet
+- Cardiovascular `metrics` cards not rendering yet (checking `mockData.js` placement)
+- Terminal shows odd characters (`â†’`, `â€”`): console display only; verify in browser
 
-## Integration instructions
-1. `git pull origin main`
-2. `cd client`
-3. `npm install`
-4. `npm run dev` (opens at http://localhost:5173)
-5. Always run npm commands inside `client/`, not the repo root.
+## Instructions for integration
+1. `cd client && npm install && npm run dev` (opens http://localhost:5173)
+2. All screens read data only through `src/services/api.js`. Do not hardcode health values in pages.
+3. Source labels must be one of NASA_RESEARCH, MEASURED, SELF_REPORTED, SIMULATED_DEMO.
+- Design v3: HUD-style panels (index.css), chibi astronaut twin (SVG), new TwinStage, Command Center re-layout
+- Files modified: index.css, AstronautTwin.jsx, TwinStage.jsx, CommandCenter.jsx

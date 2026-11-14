@@ -16,8 +16,9 @@
   --color-ice: #DCE6F1;
   --color-nasa-red: #FC3D21;
   --color-signal: #2E6FD8;
+  --color-hud: #5AA9FF;
 
-  /* Slightly lighter navy for cards and panels */
+  /* Panels */
   --color-panel: #0A2447;
   --color-panel-raised: #0E2F5C;
 
@@ -37,14 +38,13 @@
 @layer base {
   html, body, #root { height: 100%; }
   body {
-    background-color: var(--color-space-navy);
     color: white;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3 {
     font-family: var(--font-display);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
   }
   :focus-visible {
@@ -52,12 +52,112 @@
     outline-offset: 2px;
   }
 }
-/* Slim dark scrollbars (sidebar and panels) */
+
+/* ---------- Background: deep space + glow + engineering grid ---------- */
+body {
+  background:
+    radial-gradient(1000px 520px at 85% -10%, rgba(11, 61, 145, 0.55), transparent 60%),
+    radial-gradient(700px 420px at -5% 105%, rgba(46, 111, 216, 0.22), transparent 60%),
+    var(--color-space-navy);
+  background-attachment: fixed;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(220, 230, 241, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(220, 230, 241, 0.045) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse at 70% 0%, black 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse at 70% 0%, black 0%, transparent 75%);
+}
+#root { position: relative; z-index: 1; }
+
+/* ---------- HUD panel: used by every card in the app ---------- */
+.glass-card {
+  position: relative;
+  background: linear-gradient(180deg, rgba(14, 47, 92, 0.55), rgba(6, 26, 53, 0.85));
+  border: 1px solid rgba(90, 169, 255, 0.22);
+  border-radius: 0.75rem;
+  box-shadow:
+    0 14px 30px -20px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(11, 61, 145, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s ease;
+}
+.glass-card:hover { border-color: rgba(90, 169, 255, 0.42); }
+
+/* Corner brackets: yellow top-left, blue bottom-right */
+.glass-card::before,
+.glass-card::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  border: 2px solid transparent;
+}
+.glass-card::before {
+  top: 0;
+  left: 0;
+  border-top-color: var(--color-mission-yellow);
+  border-left-color: var(--color-mission-yellow);
+  border-top-left-radius: 0.75rem;
+}
+.glass-card::after {
+  bottom: 0;
+  right: 0;
+  border-bottom-color: rgba(90, 169, 255, 0.9);
+  border-right-color: rgba(90, 169, 255, 0.9);
+  border-bottom-right-radius: 0.75rem;
+}
+
+/* Hero stage: glow behind the astronaut twin */
+.hero-stage {
+  background:
+    radial-gradient(ellipse at 50% 58%, rgba(46, 111, 216, 0.32), transparent 62%),
+    linear-gradient(180deg, rgba(11, 61, 145, 0.25), rgba(6, 26, 53, 0.92));
+}
+
+/* Small telemetry-style label with a yellow marker */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(220, 230, 241, 0.65);
+}
+.eyebrow::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  background: var(--color-mission-yellow);
+  flex-shrink: 0;
+}
+
+/* Big numbers with a soft glow */
+.num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 18px rgba(90, 169, 255, 0.35);
+}
+
+/* Slim dark scrollbars */
 * {
   scrollbar-width: thin;
   scrollbar-color: rgba(220, 230, 241, 0.25) transparent;
 }
-/* Astronaut twin: remove the browser's box outline, show a yellow region outline instead */
+
+/* Astronaut twin: yellow outline on keyboard focus instead of the browser box */
 svg g[role="button"]:focus,
 svg g[role="button"]:focus-visible {
   outline: none;
@@ -66,71 +166,14 @@ svg g[role="button"]:focus-visible > * {
   stroke: var(--color-mission-yellow);
   stroke-width: 4px;
 }
-/* ---------- Visual upgrade v2 ---------- */
-body {
-  background:
-    radial-gradient(900px 480px at 80% -10%, rgba(11, 61, 145, 0.45), transparent 60%),
-    var(--color-space-navy);
-  background-attachment: fixed;
-}
 
-/* Faint engineering grid instead of stars */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image:
-    linear-gradient(rgba(220, 230, 241, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(220, 230, 241, 0.04) 1px, transparent 1px);
-  background-size: 44px 44px;
-  -webkit-mask-image: radial-gradient(ellipse at 70% 0%, black 0%, transparent 75%);
-  mask-image: radial-gradient(ellipse at 70% 0%, black 0%, transparent 75%);
-}
-#root { position: relative; z-index: 1; }
-
-.glass-card {
-  background: linear-gradient(180deg, rgba(11, 61, 145, 0.28), rgba(6, 26, 53, 0.78));
-  border: 1px solid rgba(46, 111, 216, 0.35);
-  border-radius: 0.875rem;
-  box-shadow:
-    0 0 0 1px rgba(46, 111, 216, 0.06),
-    0 0 28px -10px rgba(46, 111, 216, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(6px);
-}
-
-/* Hero stage: radial glow behind the astronaut twin */
-.hero-stage {
-  background:
-    radial-gradient(ellipse at 50% 55%, rgba(46, 111, 216, 0.28), transparent 62%),
-    linear-gradient(180deg, rgba(11, 61, 145, 0.2), rgba(6, 26, 53, 0.85));
-}
-
-/* Small telemetry-style label */
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(220, 230, 241, 0.6);
-}
-
-/* Big numbers */
-.num {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-}
-/* Orbit animation for the twin stage */
-@keyframes orbit-spin { to { transform: rotate(360deg); } }
-.orbit-spin {
+/* Slow rotating HUD ring (twin stage) */
+@keyframes hud-spin { to { transform: rotate(360deg); } }
+.hud-spin {
   transform-box: view-box;
-  transform-origin: 200px 280px;
-  animation: orbit-spin 28s linear infinite;
+  transform-origin: 200px 205px;
+  animation: hud-spin 80s linear infinite;
 }
 @media (prefers-reduced-motion: reduce) {
-  .orbit-spin { animation: none; }
+  .hud-spin { animation: none; }
 }

@@ -20,6 +20,11 @@ import { analyzeSeries } from './anomalyDetector.js';
 const INPUT = 'src/data/nasa/raw/LSDS-8_Multiplex_serum.cardiovascular.EvePanel_SUBMITTED.csv';
 const OUTPUT = 'src/data/nasa/osd575_cardio_analysis.json';
 
+// Configurable demonstration rules
+const USE_LOG10 = true;          // biomarkers span orders of magnitude, so compare on a log10 scale
+const REPEAT_MIN = 3;            // one exact value repeated this many times in an analyte = suspicious
+const LOG_MIN_SPREAD = 0.05;     // minimum baseline spread on the log10 scale (about 12%)
+
 const BASELINE_POINTS = ['L-92', 'L-44', 'L-3'];
 const OBSERVATION_POINTS = ['R+1', 'R+45', 'R+82', 'R+194'];
 
@@ -65,6 +70,21 @@ for (const [analyte, units] of Object.entries(unitsByAnalyte)) {
   if (units.size !== 1) throw new Error(`Mixed units for ${analyte}: ${[...units].join(', ')}`);
 }
 
+// Detect suspicious repeated values: real continuous measurements almost never repeat to
+// the last digit. If one exact value repeats many times in an analyte, it may be a limit of
+// the assay or a processing artifact. We do NOT know the cause, so such values are treated as
+// possibly censored: excluded from the analysis and flagged. The original data is untouched.
+const repeatedByAnalyte = {};
+for (const analyte of Object.keys(unitsByAnalyte)) {
+  const counts = new Map();
+  for (const r of rows.filter((x) => x.Analyte === analyte)) {
+    const v = toNumber(r.Concentration);
+    if (v !== null) counts.set(v, (counts.get(v) || 0) + 1);
+  }
+  const [value, n] = [...counts.entries()].sort((x, y) => y[1] - x[1])[0] ?? [null, 0];
+  if (n >= REPEAT_MIN) repeatedByAnalyte[analyte] = { value, times: n };
+}
+
 const analytes = Object.keys(unitsByAnalyte);
 const subjects = [...new Set(rows.map((r) => r.ID))].sort();
 const results = [];
@@ -72,19 +92,39 @@ const results = [];
 for (const analyte of analytes) {
   const unit = [...unitsByAnalyte[analyte]][0];
   for (const subject of subjects) {
+    const originalValues = {};
+    const censoredAt = [];
     const valueAt = (tp) => {
       const hit = rows.find((r) => r.Analyte === analyte && r.ID === subject && r.Timepoint === tp);
-      return hit ? toNumber(hit.Concentration) : null;
+      const raw = hit ? toNumber(hit.Concentration) : null;
+      originalValues[tp] = raw;                       // original data is always preserved
+      if (raw === null) return null;
+      if (raw === repeatedByAnalyte[analyte]?.value) { censoredAt.push(tp); return null; } // censored: excluded
+      if (!USE_LOG10) return raw;
+      return raw > 0 ? Math.log10(raw) : null;        // log10 needs a positive value
     };
     const analysis = analyzeSeries({
+      baselineConfig: USE_LOG10 ? { minScaleFraction: 0, minScaleAbsolute: LOG_MIN_SPREAD } : {},
       baselineValues: BASELINE_POINTS.map(valueAt),
       observations: OBSERVATION_POINTS.map((tp) => ({ label: tp, value: valueAt(tp) })),
       meta: {
-        signal: analyte, unit, direction: 'both',
+        signal: analyte, unit: USE_LOG10 ? `log10(${unit})` : unit, direction: 'both',
         sourceLabel: 'NASA_RESEARCH', datasetId: 'OSD-575',
       },
     });
-    results.push({ subject_id: subject, ...analysis });
+    if (censoredAt.length > 0) {
+      analysis.contributingFactors.push(
+        `Values at ${censoredAt.join(', ')} equal a value repeated ${repeatedByAnalyte[analyte].times} times in this analyte (${repeatedByAnalyte[analyte].value} ${unit}); cause unverified, treated as possibly censored and excluded.`
+      );
+    }
+    results.push({
+      subject_id: subject,
+      transform: USE_LOG10 ? 'log10' : 'none',
+      original_unit: unit,
+      original_values: originalValues,
+      censored_timepoints: censoredAt,
+      ...analysis,
+    });
   }
 }
 
@@ -95,6 +135,8 @@ const output = {
     'Research blood biomarkers, not heart rate or HRV.',
     'Baseline = 3 preflight samples per astronaut (L-92, L-44, L-3): confidence is LOW.',
     'Deviations from a personal baseline are not diagnoses.',
+    USE_LOG10 ? 'Values were compared on a log10 scale; original values are preserved in original_values.' : 'No transform applied.',
+    `Suspicious repeated values excluded (cause unverified): ${JSON.stringify(repeatedByAnalyte)}`,
     'Thresholds are configurable demonstration rules, not clinical limits.',
   ],
   baseline_timepoints: BASELINE_POINTS,

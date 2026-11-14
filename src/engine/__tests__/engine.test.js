@@ -69,3 +69,10 @@ test('no baseline -> unknown status', () => {
   const r = analyzeSeries({ observations: [{ label: 'a', value: 5 }], baselineValues: [5], meta: { signal: 'x' } });
   assert.equal(r.status, 'unknown');
 });
+
+test('absolute spread floor works for log-scaled data', () => {
+  const b = buildBaseline([5.19, 5.20, 5.21], { minScaleFraction: 0, minScaleAbsolute: 0.05 });
+  assert.equal(b.status, 'ready');
+  near(b.scale, 0.05);
+  assert.ok(b.scaleMethod.includes('floor'));
+});

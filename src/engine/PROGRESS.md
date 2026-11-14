@@ -5,6 +5,7 @@
 - Anomaly detector (robust z, EWMA, CUSUM, persistence)
 - 10 unit tests (all passing)
 - OSD-575 runner: real NASA cardiovascular biomarker panel, 9 analytes x 4 astronauts
+- log10 comparison with an absolute spread floor, and exclusion of suspicious repeated values (original values preserved)
 
 ## Current work
 - Reviewing OSD-575 results and data-quality flags
@@ -31,8 +32,7 @@
 - 'unknown' means no usable baseline. It never means healthy.
 
 ## Pending
-- Flag assay-ceiling values (haptoglobin 17,907,000 ng/ml appears 7 times) as censored
-- Optional log10 transform for biomarkers spanning orders of magnitude
+- Find out why haptoglobin 17,907,000 ng/ml repeats 7 times (cause unverified; not the maximum, so not a proven ceiling)
 - sleepSimulator.js (SIMULATED_DEMO, seeded)
 - riskFusion.js (combine the four domains)
 
@@ -41,6 +41,7 @@
 - Cardiovascular panel = blood biomarkers, NOT heart rate or HRV
 - Results are deviations from a personal baseline, NOT diagnoses
 - Thresholds are configurable demonstration rules, not clinical limits
+- Haptoglobin for C003 and C004 is 'unknown' because most of their values are the suspicious repeated value
 
 ## Integration
 - Import analyzeSeries from src/engine/anomalyDetector.js

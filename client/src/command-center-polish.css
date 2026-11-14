@@ -1,0 +1,156 @@
+/* ==========================================================
+   AstroVital AI: Command Center polish layer
+   Import this AFTER your main index.css, e.g. in main.jsx:
+     import './index.css'
+     import './command-center-polish.css'
+   Colour theme is unchanged (navy / yellow / ice / status colours).
+   ========================================================== */
+
+/* ---------- Softer card chrome (overrides existing cards) ---------- */
+.glass-card,
+.hero-stage {
+  border-radius: 18px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015)) !important;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Remove the "game-style" corner brackets if they come from pseudo-elements */
+.glass-card::before,
+.glass-card::after,
+.hero-stage::before,
+.hero-stage::after {
+  display: none !important;
+}
+
+/* The twin stage gets a soft spotlight instead of a flat fill */
+.hero-stage {
+  background:
+    radial-gradient(60% 55% at 50% 42%, rgba(43, 91, 190, 0.28), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015)) !important;
+}
+
+/* ---------- Page layout ---------- */
+.ac-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ac-kpi-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+@media (min-width: 640px) {
+  .ac-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1280px) {
+  .ac-kpi-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.ac-hero-grid,
+.ac-bottom-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 1536px) {
+  .ac-hero-grid { grid-template-columns: minmax(0, 1fr) 380px; }
+}
+@media (min-width: 1280px) {
+  .ac-bottom-grid { grid-template-columns: minmax(0, 1fr) 380px; }
+}
+
+.ac-side {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 768px) and (max-width: 1535px) {
+  .ac-side { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.ac-stack { display: flex; flex-direction: column; gap: 20px; }
+
+/* ---------- Overall status panel ---------- */
+.ac-panel {
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.015));
+  backdrop-filter: blur(14px);
+  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  padding: 22px;
+}
+.ac-panel-head { display: flex; align-items: center; justify-content: space-between; }
+
+/* Sentence case, quiet: replaces the tracked-out caps label */
+.ac-eyebrow {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: rgba(220, 230, 241, 0.72);
+}
+
+.ac-gauge { display: flex; justify-content: center; margin: 20px 0 14px; }
+
+.ac-rows { margin: 0; font-size: 14px; }
+.ac-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+.ac-row dt { color: rgba(220, 230, 241, 0.65); }
+.ac-row dd { margin: 0; color: #fff; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.ac-factors { margin-top: 14px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.07); }
+.ac-factors ul { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 12px; }
+.ac-factors li { display: flex; gap: 10px; align-items: flex-start; }
+.ac-dot {
+  flex: none;
+  width: 7px; height: 7px; margin-top: 7px;
+  border-radius: 999px;
+  background: #ffd100;
+  box-shadow: 0 0 10px rgba(255, 209, 0, 0.7);
+}
+.ac-factor-title { display: block; color: #fff; font-size: 14px; font-weight: 600; }
+.ac-factor-detail { display: block; margin-top: 2px; font-size: 12px; line-height: 1.45; color: rgba(220, 230, 241, 0.62); }
+.ac-muted { margin: 10px 0 0; font-size: 12px; color: rgba(220, 230, 241, 0.55); }
+
+.ac-summary { margin: 14px 0 0; font-size: 14px; line-height: 1.55; color: rgba(220, 230, 241, 0.8); max-width: 70ch; }
+
+/* ---------- "Open full view" link ---------- */
+.ac-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffd100;
+  border: 1px solid rgba(255, 209, 0, 0.35);
+  background: rgba(255, 209, 0, 0.06);
+  transition: background 0.15s, transform 0.15s;
+}
+.ac-link:hover { background: rgba(255, 209, 0, 0.14); }
+.ac-link:hover svg { transform: translateX(2px); }
+.ac-link svg { transition: transform 0.15s; }
+.ac-link:focus-visible { outline: 2px solid #ffd100; outline-offset: 2px; }
+
+/* ---------- Numbers: bigger, cleaner, tabular ---------- */
+.ac-kpi-grid [class*='text-4xl'],
+.ac-kpi-grid [class*='text-5xl'] {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ac-link, .ac-link svg { transition: none; }
+}

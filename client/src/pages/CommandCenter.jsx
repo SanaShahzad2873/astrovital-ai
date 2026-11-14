@@ -36,12 +36,12 @@ export default function CommandCenter() {
   const openRegion = (key) => navigate(`/twin?region=${key}`)
 
   return (
-    <div className="space-y-5">
+    <div className="ac-page">
       <DemoBanner />
 
       {/* Row 1: domain KPI strip */}
       <section aria-label="Health domains">
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="ac-kpi-grid">
           {DOMAINS.map((d) => {
             const dom = domains[d.key]
             return (
@@ -63,15 +63,18 @@ export default function CommandCenter() {
       </section>
 
       {/* Row 2: astronaut hero | status + alerts */}
-      <div className="grid gap-4 2xl:grid-cols-[1fr_380px]">
+      <div className="ac-hero-grid">
         <Card
           title="Astronaut digital twin"
           className="hero-stage"
           action={
             <div className="flex items-center gap-3">
-              <SourceTag source={overall.source} />
-              <Link to="/twin" className="text-sm font-semibold text-mission-yellow hover:underline">
-                Open full view →
+            
+              <Link to="/twin" className="ac-link">
+                Open full view
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </Link>
             </div>
           }
@@ -79,36 +82,42 @@ export default function CommandCenter() {
           <TwinHero regions={data.bodyRegions} selected={null} onSelect={openRegion} />
         </Card>
 
-        <div className="grid content-start gap-4 md:grid-cols-2 2xl:grid-cols-1">
-          <section className="glass-card p-5">
-            <div className="flex items-center justify-between">
-              <p className="eyebrow">Overall status</p>
+        <div className="ac-side">
+          <section className="ac-panel">
+            <div className="ac-panel-head">
+              <p className="ac-eyebrow">Overall status</p>
               <StatusBadge status={overall.status} />
             </div>
-            <div className="my-4 flex justify-center">
+
+            <div className="ac-gauge">
               <RiskGauge value={overall.riskScore} status={overall.status} />
             </div>
-            <dl className="divide-y divide-white/10 text-sm">
+
+            <dl className="ac-rows">
               {rows.map(([k, v]) => (
-                <div key={k} className="flex items-center justify-between py-2">
-                  <dt className="text-ice/70">{k}</dt>
-                  <dd className="font-mono text-white">{v}</dd>
+                <div key={k} className="ac-row">
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
                 </div>
               ))}
             </dl>
-            <div className="mt-4 border-t border-white/10 pt-3">
-              <p className="eyebrow mb-2">Contributing factors</p>
+
+            <div className="ac-factors">
+              <p className="ac-eyebrow">Contributing factors</p>
               {factors.length ? (
-                <ul className="space-y-2 text-sm">
+                <ul>
                   {factors.map((f, i) => (
                     <li key={i}>
-                      <span className="text-white">{f.label}</span>
-                      <span className="block text-xs text-ice/70">{f.domain}: {f.detail}</span>
+                      <span className="ac-dot" />
+                      <div>
+                        <span className="ac-factor-title">{f.label}</span>
+                        <span className="ac-factor-detail">{f.domain}: {f.detail}</span>
+                      </div>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p className="text-xs text-ice/60">No contributing factors reported.</p>
+                <p className="ac-muted">No contributing factors reported.</p>
               )}
             </div>
           </section>
@@ -120,16 +129,16 @@ export default function CommandCenter() {
       </div>
 
       {/* Row 3: telemetry | mission + link */}
-      <div className="grid gap-4 xl:grid-cols-[1fr_380px]">
-        <Card title="Telemetry: overall risk trend" action={<SourceTag source={overall.source} />}>
+      <div className="ac-bottom-grid">
+        <Card title="Telemetry: overall risk trend">
           {overall.history?.length ? (
             <RiskTrendChart data={overall.history} color={STATUS_COLOR[overall.status]} />
           ) : (
             <EmptyState text="No trend data available." />
           )}
-          <p className="mt-2 text-sm text-ice">{overall.summary}</p>
+          <p className="ac-summary">{overall.summary}</p>
         </Card>
-        <div className="space-y-4">
+        <div className="ac-stack">
           <MissionProgressCard
             day={data.missionDay}
             total={data.missionTotalDays}

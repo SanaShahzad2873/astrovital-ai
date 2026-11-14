@@ -3,12 +3,13 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { REGION_LABELS } from '../../config/bodyRegions'
 import { STATUS_COLOR, STATUS_TEXT } from '../../config/status'
 
-// Cute chibi astronaut, drawn in a 300 x 440 space.
+// Professional "holographic suit" astronaut, drawn in a 300 x 440 space.
+// Same hit-regions and props as before, so TwinHero / DigitalTwin keep working.
 // "Left" = the astronaut's own left (right side of the screen).
-const INK = '#061A35'
-const BLUE = '#0B3D91'
 const ICE = '#DCE6F1'
 const YELLOW = '#FFD100'
+const EDGE = 'rgba(220,230,241,0.38)'
+const EDGE_SOFT = 'rgba(220,230,241,0.16)'
 
 const SHAPES = {
   head: {
@@ -44,10 +45,13 @@ const PULSING = ['attention', 'risk', 'fatigue', 'radiation']
 
 export function TwinLegend() {
   return (
-    <ul className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-ice">
+    <ul className="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs text-ice/80">
       {Object.keys(STATUS_TEXT).map((s) => (
-        <li key={s} className="flex items-center gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full" style={{ background: STATUS_COLOR[s] }} />
+        <li key={s} className="flex items-center gap-2">
+          <span
+            className="h-2 w-2 rounded-full"
+            style={{ background: STATUS_COLOR[s], boxShadow: `0 0 8px ${STATUS_COLOR[s]}` }}
+          />
           {STATUS_TEXT[s]}
         </li>
       ))}
@@ -66,6 +70,7 @@ export default function AstronautTwin({ regions = {}, selected, onSelect }) {
   }
 
   const body = ['rightLeg', 'leftLeg', 'rightArm', 'leftArm', 'abdomen', 'chest']
+  const hoverStatus = regions[hover?.key]?.status ?? 'unknown'
 
   return (
     <div ref={wrapRef} className="relative w-full">
@@ -76,25 +81,30 @@ export default function AstronautTwin({ regions = {}, selected, onSelect }) {
         aria-label="Interactive astronaut body map"
       >
         <defs>
-          <linearGradient id="at-suit" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#FFFFFF" />
-            <stop offset="100%" stopColor="#BFD0E6" />
+          <linearGradient id="at2-suit" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#1B3C75" />
+            <stop offset="100%" stopColor="#0A1F45" />
           </linearGradient>
-          <radialGradient id="at-helmet" cx="35%" cy="28%" r="85%">
-            <stop offset="0%" stopColor="#FFFFFF" />
-            <stop offset="65%" stopColor="#E3ECF7" />
-            <stop offset="100%" stopColor="#A9BDD8" />
+          <radialGradient id="at2-helmet" cx="35%" cy="25%" r="90%">
+            <stop offset="0%" stopColor="#2A5199" />
+            <stop offset="55%" stopColor="#12306A" />
+            <stop offset="100%" stopColor="#081631" />
           </radialGradient>
-          <linearGradient id="at-visor" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#17407F" />
-            <stop offset="100%" stopColor="#061A35" />
+          <linearGradient id="at2-visor" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#0F2A57" />
+            <stop offset="100%" stopColor="#030B1C" />
           </linearGradient>
-          <linearGradient id="at-pack" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#1650B8" />
-            <stop offset="100%" stopColor="#0B3D91" />
+          <linearGradient id="at2-scan" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor={ICE} stopOpacity="0" />
+            <stop offset="50%" stopColor={ICE} stopOpacity="0.55" />
+            <stop offset="100%" stopColor={ICE} stopOpacity="0" />
           </linearGradient>
-          <filter id="at-glow" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="2.5" result="blur" />
+          <radialGradient id="at2-floor" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor={YELLOW} stopOpacity="0.28" />
+            <stop offset="100%" stopColor={YELLOW} stopOpacity="0" />
+          </radialGradient>
+          <filter id="at2-glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="3" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -102,39 +112,53 @@ export default function AstronautTwin({ regions = {}, selected, onSelect }) {
           </filter>
         </defs>
 
+        {/* ===== Backdrop: orbit ring + floor glow (static) ===== */}
+        <g pointerEvents="none" aria-hidden="true">
+          <ellipse cx="150" cy="232" rx="146" ry="200" fill="none" stroke={EDGE_SOFT} strokeDasharray="2 6" />
+          <ellipse cx="150" cy="232" rx="118" ry="170" fill="none" stroke="rgba(220,230,241,0.07)" />
+          <ellipse cx="150" cy="428" rx="100" ry="11" fill="url(#at2-floor)" />
+        </g>
+
         <motion.g
-          animate={reduceMotion ? undefined : { y: [0, -5, 0] }}
-          transition={{ duration: 3.4, repeat: Infinity, ease: 'easeInOut' }}
+          animate={reduceMotion ? undefined : { y: [0, -4, 0] }}
+          transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
         >
           {/* ===== Layer 1: suit artwork (not clickable) ===== */}
           <g pointerEvents="none" aria-hidden="true">
-            {/* backpack */}
-            <rect x="58" y="214" width="184" height="98" rx="28" fill="url(#at-pack)" stroke={INK} strokeWidth="2.5" />
-            <rect x="70" y="226" width="14" height="40" rx="7" fill="#FFFFFF" opacity="0.18" />
-            {/* body parts */}
+            {/* life-support pack */}
+            <rect x="62" y="214" width="176" height="98" rx="26" fill="#0A1F45" stroke={EDGE_SOFT} strokeWidth="1.5" />
+            {/* suit panels */}
             {body.map((key) => {
               const s = SHAPES[key]
               const Tag = s.tag
               return (
-                <Tag key={key} {...s.props} fill="url(#at-suit)" stroke={INK} strokeWidth="2.5" strokeLinejoin="round" />
+                <Tag key={key} {...s.props} fill="url(#at2-suit)" stroke={EDGE} strokeWidth="1.5" strokeLinejoin="round" />
               )
             })}
+            {/* panel seams */}
+            <path d="M150 218 L150 262" stroke={EDGE_SOFT} strokeWidth="1" />
+            <path d="M112 298 L188 298" stroke={EDGE_SOFT} strokeWidth="1" />
+            <path d="M110 366 Q127 372 144 366" stroke={EDGE_SOFT} strokeWidth="1.2" fill="none" />
+            <path d="M156 366 Q173 372 190 366" stroke={EDGE_SOFT} strokeWidth="1.2" fill="none" />
             {/* boots */}
-            <rect x="102" y="394" width="48" height="28" rx="14" fill="url(#at-suit)" stroke={INK} strokeWidth="2.5" />
-            <rect x="150" y="394" width="48" height="28" rx="14" fill="url(#at-suit)" stroke={INK} strokeWidth="2.5" />
-            <rect x="106" y="414" width="40" height="8" rx="4" fill={BLUE} />
-            <rect x="154" y="414" width="40" height="8" rx="4" fill={BLUE} />
+            <rect x="102" y="394" width="48" height="26" rx="13" fill="#0F2A57" stroke={EDGE} strokeWidth="1.5" />
+            <rect x="150" y="394" width="48" height="26" rx="13" fill="#0F2A57" stroke={EDGE} strokeWidth="1.5" />
+            <rect x="108" y="412" width="36" height="3" rx="1.5" fill={YELLOW} opacity="0.8" />
+            <rect x="156" y="412" width="36" height="3" rx="1.5" fill={YELLOW} opacity="0.8" />
             {/* gloves */}
-            <circle cx="77" cy="318" r="14" fill={ICE} stroke={INK} strokeWidth="2.5" />
-            <circle cx="223" cy="318" r="14" fill={ICE} stroke={INK} strokeWidth="2.5" />
-            {/* helmet */}
-            <circle cx="150" cy="118" r="98" fill="url(#at-helmet)" stroke={INK} strokeWidth="3" />
-            <circle cx="150" cy="118" r="88" fill="none" stroke="#FFFFFF" strokeWidth="2" opacity="0.7" />
-            {/* ear caps */}
-            <circle cx="52" cy="122" r="14" fill="url(#at-pack)" stroke={INK} strokeWidth="2.5" />
-            <circle cx="248" cy="122" r="14" fill="url(#at-pack)" stroke={INK} strokeWidth="2.5" />
+            <circle cx="77" cy="318" r="12" fill="#0F2A57" stroke={EDGE} strokeWidth="1.5" />
+            <circle cx="223" cy="318" r="12" fill="#0F2A57" stroke={EDGE} strokeWidth="1.5" />
+            {/* wrist rings */}
+            <path d="M64 299 Q76 306 89 299" stroke={YELLOW} strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.8" />
+            <path d="M211 299 Q224 306 236 299" stroke={YELLOW} strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.8" />
             {/* neck ring */}
-            <rect x="116" y="208" width="68" height="16" rx="8" fill="url(#at-pack)" stroke={INK} strokeWidth="2.5" />
+            <rect x="118" y="208" width="64" height="14" rx="7" fill="#0F2A57" stroke={EDGE} strokeWidth="1.5" />
+            {/* helmet shell */}
+            <circle cx="150" cy="118" r="98" fill="url(#at2-helmet)" stroke={EDGE} strokeWidth="2" />
+            <circle cx="150" cy="118" r="90" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+            {/* ear modules */}
+            <rect x="40" y="108" width="20" height="28" rx="8" fill="#0F2A57" stroke={EDGE} strokeWidth="1.5" />
+            <rect x="240" y="108" width="20" height="28" rx="8" fill="#0F2A57" stroke={EDGE} strokeWidth="1.5" />
           </g>
 
           {/* ===== Layer 2: clickable regions ===== */}
@@ -143,6 +167,7 @@ export default function AstronautTwin({ regions = {}, selected, onSelect }) {
             const known = status !== 'unknown'
             const color = STATUS_COLOR[status] ?? STATUS_COLOR.unknown
             const isSelected = selected === key
+            const isHover = hover?.key === key
             const Tag = shape.tag
             return (
               <g
@@ -151,7 +176,7 @@ export default function AstronautTwin({ regions = {}, selected, onSelect }) {
                 tabIndex={0}
                 aria-label={`${REGION_LABELS[key]}: ${STATUS_TEXT[status]}`}
                 aria-pressed={isSelected}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: 'pointer', outline: 'none' }}
                 onClick={() => onSelect?.(key)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
@@ -166,75 +191,72 @@ export default function AstronautTwin({ regions = {}, selected, onSelect }) {
                 <Tag
                   {...shape.props}
                   fill={known ? color : ICE}
-                  fillOpacity={isSelected || hover?.key === key ? 0.2 : known ? 0.06 : 0}
-                  stroke={isSelected ? YELLOW : known ? color : hover?.key === key ? ICE : 'transparent'}
-                  strokeWidth={isSelected ? 4 : known ? 2.5 : 1.5}
+                  fillOpacity={isSelected ? 0.3 : isHover ? 0.24 : known ? 0.14 : isHover ? 0.08 : 0}
+                  stroke={isSelected ? YELLOW : known ? color : isHover ? ICE : 'transparent'}
+                  strokeWidth={isSelected ? 2.5 : 1.6}
                   strokeLinejoin="round"
-                  filter={known ? 'url(#at-glow)' : undefined}
+                  filter={known ? 'url(#at2-glow)' : undefined}
                 />
               </g>
             )
           })}
 
-          {/* ===== Layer 3: face and suit details (on top, not clickable) ===== */}
+          {/* ===== Layer 3: visor + suit details (on top, not clickable) ===== */}
           <g pointerEvents="none" aria-hidden="true">
-            {/* antenna */}
-            <line x1="150" y1="21" x2="150" y2="12" stroke={INK} strokeWidth="3" strokeLinecap="round" />
-            <circle cx="150" cy="8" r="5" fill={YELLOW} stroke={INK} strokeWidth="2">
+            {/* beacon */}
+            <line x1="150" y1="21" x2="150" y2="12" stroke={EDGE} strokeWidth="2" strokeLinecap="round" />
+            <circle cx="150" cy="8" r="3.5" fill={YELLOW}>
               {!reduceMotion && (
-                <animate attributeName="opacity" values="1;0.35;1" dur="1.6s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite" />
               )}
             </circle>
 
-            {/* helmet stripe */}
-            <path d="M112 40 Q150 24 188 40" stroke={YELLOW} strokeWidth="7" fill="none" strokeLinecap="round" />
+            {/* helmet crest */}
+            <path d="M118 38 Q150 26 182 38" stroke={YELLOW} strokeWidth="3" fill="none" strokeLinecap="round" opacity="0.9" />
 
             {/* visor */}
-            <ellipse cx="150" cy="124" rx="72" ry="60" fill="url(#at-visor)" stroke={BLUE} strokeWidth="6" />
-            <path d="M104 100 Q112 78 140 72" stroke="#FFFFFF" strokeWidth="7" fill="none" strokeLinecap="round" opacity="0.9" />
-            <circle cx="160" cy="74" r="3.5" fill="#FFFFFF" opacity="0.9" />
-            <circle cx="112" cy="116" r="2.5" fill="#FFFFFF" opacity="0.8" />
+            <ellipse cx="150" cy="124" rx="70" ry="56" fill="url(#at2-visor)" stroke="rgba(255,209,0,0.55)" strokeWidth="1.5" />
+            <path d="M102 102 Q110 82 138 76" stroke="#FFFFFF" strokeWidth="4" fill="none" strokeLinecap="round" opacity="0.3" />
+            <path d="M96 138 Q100 150 112 158" stroke="#FFFFFF" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.14" />
 
-            {/* face */}
-            <ellipse cx="128" cy="126" rx="7" ry="8" fill={ICE}>
-              {!reduceMotion && (
-                <animate attributeName="ry" values="8;8;1;8" keyTimes="0;0.9;0.95;1" dur="4.5s" repeatCount="indefinite" />
-              )}
-            </ellipse>
-            <ellipse cx="172" cy="126" rx="7" ry="8" fill={ICE}>
-              {!reduceMotion && (
-                <animate attributeName="ry" values="8;8;1;8" keyTimes="0;0.9;0.95;1" dur="4.5s" repeatCount="indefinite" />
-              )}
-            </ellipse>
-            <circle cx="130" cy="123" r="2" fill="#FFFFFF" />
-            <circle cx="174" cy="123" r="2" fill="#FFFFFF" />
-            <ellipse cx="112" cy="142" rx="8" ry="5" fill="#FC3D21" opacity="0.35" />
-            <ellipse cx="188" cy="142" rx="8" ry="5" fill="#FC3D21" opacity="0.35" />
-            <path d="M138 146 Q150 160 162 146" stroke={ICE} strokeWidth="4" fill="none" strokeLinecap="round" />
+            {/* vitals trace on the visor */}
+            <path
+              d="M92 128 H120 L128 112 L138 146 L149 98 L160 138 L168 128 H208"
+              fill="none" stroke={YELLOW} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+              opacity={reduceMotion ? 0.7 : 0.25}
+            />
+            {!reduceMotion && (
+              <path
+                d="M92 128 H120 L128 112 L138 146 L149 98 L160 138 L168 128 H208"
+                fill="none" stroke={YELLOW} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"
+                pathLength="1" strokeDasharray="0.22 0.78" filter="url(#at2-glow)"
+              >
+                <animate attributeName="stroke-dashoffset" values="1;0" dur="2.6s" repeatCount="indefinite" />
+              </path>
+            )}
 
-            {/* chest patch "AV" and button */}
-            <circle cx="122" cy="246" r="12" fill={BLUE} stroke={ICE} strokeWidth="2" />
+            {/* chest badge + status LEDs */}
+            <circle cx="122" cy="246" r="11" fill="#0F2A57" stroke={YELLOW} strokeWidth="1.2" />
             <text x="122" y="250" textAnchor="middle" fontSize="10" fontWeight="700" fill="#FFFFFF" fontFamily="Barlow Condensed, sans-serif">AV</text>
-            <circle cx="176" cy="246" r="7" fill={YELLOW} stroke={INK} strokeWidth="2" />
-
-            {/* control panel */}
-            <rect x="134" y="266" width="32" height="10" rx="5" fill={INK} />
-            <circle cx="142" cy="271" r="2.5" fill="var(--color-status-optimal)" />
-            <circle cx="150" cy="271" r="2.5" fill={YELLOW} />
-            <circle cx="158" cy="271" r="2.5" fill="var(--color-signal)" />
-
-            {/* wrist cuffs */}
-            <path d="M63 298 Q76 306 90 298" stroke={BLUE} strokeWidth="5" fill="none" strokeLinecap="round" />
-            <path d="M210 298 Q224 306 237 298" stroke={BLUE} strokeWidth="5" fill="none" strokeLinecap="round" />
+            <rect x="136" y="262" width="30" height="8" rx="4" fill="#030B1C" stroke={EDGE_SOFT} />
+            <circle cx="143" cy="266" r="2" fill="var(--color-status-optimal)" />
+            <circle cx="151" cy="266" r="2" fill={YELLOW} />
+            <circle cx="159" cy="266" r="2" fill="var(--color-signal)" />
 
             {/* belt */}
-            <rect x="100" y="312" width="100" height="12" rx="6" fill="url(#at-pack)" stroke={INK} strokeWidth="2" />
-            <rect x="142" y="311" width="16" height="14" rx="3" fill={YELLOW} stroke={INK} strokeWidth="2" />
-
-            {/* knee seams */}
-            <path d="M110 366 Q127 372 144 366" stroke={INK} strokeWidth="2" fill="none" opacity="0.4" />
-            <path d="M156 366 Q173 372 190 366" stroke={INK} strokeWidth="2" fill="none" opacity="0.4" />
+            <rect x="100" y="313" width="100" height="9" rx="4.5" fill="#0F2A57" stroke={EDGE} strokeWidth="1.2" />
+            <rect x="144" y="312" width="12" height="11" rx="2.5" fill={YELLOW} />
           </g>
+
+          {/* ===== Scan line sweeping the body ===== */}
+          {!reduceMotion && (
+            <motion.rect
+              x="50" width="200" height="2" rx="1" fill="url(#at2-scan)" pointerEvents="none"
+              initial={{ y: 24, opacity: 0 }}
+              animate={{ y: [24, 410], opacity: [0, 0.8, 0.8, 0] }}
+              transition={{ duration: 5.5, repeat: Infinity, ease: 'linear', repeatDelay: 1.5 }}
+            />
+          )}
 
           {/* ===== Animated hotspots ===== */}
           {Object.entries(SHAPES).map(([key, shape]) => {
@@ -244,13 +266,13 @@ export default function AstronautTwin({ regions = {}, selected, onSelect }) {
             const [cx, cy] = shape.center
             return (
               <g key={`hot-${key}`} pointerEvents="none" aria-hidden="true">
-                <circle cx={cx} cy={cy} r="7" fill={color} stroke={INK} strokeWidth="2" />
+                <circle cx={cx} cy={cy} r="4.5" fill={color} stroke="#030B1C" strokeWidth="1.5" />
                 {!reduceMotion && (
                   <motion.circle
-                    cx={cx} cy={cy} fill="none" stroke={color} strokeWidth="2.5"
-                    initial={{ r: 7, opacity: 0.9 }}
-                    animate={{ r: 24, opacity: 0 }}
-                    transition={{ duration: 1.8, repeat: Infinity, ease: 'easeOut' }}
+                    cx={cx} cy={cy} fill="none" stroke={color} strokeWidth="1.5"
+                    initial={{ r: 5, opacity: 0.9 }}
+                    animate={{ r: 20, opacity: 0 }}
+                    transition={{ duration: 2, repeat: Infinity, ease: 'easeOut' }}
                   />
                 )}
               </g>
@@ -261,14 +283,20 @@ export default function AstronautTwin({ regions = {}, selected, onSelect }) {
 
       {hover && (
         <div
-          className="pointer-events-none absolute z-10 max-w-[220px] rounded-lg border border-white/15 bg-space-navy px-3 py-2 text-xs shadow-lg"
-          style={{ left: hover.x + 14, top: hover.y + 14 }}
+          className="pointer-events-none absolute z-10 min-w-[150px] rounded-xl border border-white/10 px-3.5 py-2.5 text-xs shadow-2xl"
+          style={{
+            left: hover.x + 14,
+            top: hover.y + 14,
+            background: 'rgba(7,15,36,0.92)',
+            backdropFilter: 'blur(10px)',
+          }}
         >
-          <p className="font-semibold text-white">{REGION_LABELS[hover.key]}</p>
-          <p style={{ color: STATUS_COLOR[regions[hover.key]?.status ?? 'unknown'] }}>
-            {STATUS_TEXT[regions[hover.key]?.status ?? 'unknown']}
+          <p className="text-[13px] font-semibold text-white">{REGION_LABELS[hover.key]}</p>
+          <p className="mt-0.5 flex items-center gap-1.5" style={{ color: STATUS_COLOR[hoverStatus] }}>
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: STATUS_COLOR[hoverStatus] }} />
+            {STATUS_TEXT[hoverStatus]}
           </p>
-          <p className="mt-1 text-ice/70">Click for details</p>
+          <p className="mt-1.5 text-ice/60">Click to open details</p>
         </div>
       )}
     </div>

@@ -9,7 +9,7 @@ const W = 760
 const H = 520
 const AX = 230
 const AY = 40
-const CHIP_W = 174
+const CHIP_W = 150
 const CHIP_PAD = 14
 
 // side: 'l' / 'r'. anchor = point on the astronaut (astronaut space). y = chip centre height.
@@ -58,39 +58,32 @@ export default function TwinHero({ regions = {}, selected, onSelect }) {
   return (
     <div>
       <div className="relative mx-auto w-full max-w-[900px]" style={{ aspectRatio: `${W} / ${H}` }}>
-        {/* Layer 1: background, platform and callout lines (under the astronaut) */}
+        {/* Layer 1: soft spotlight, platform ring and connector lines (under the astronaut) */}
         <svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 h-full w-full" aria-hidden="true">
           <defs>
             <radialGradient id="hero-glow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#2E6FD8" stopOpacity="0.38" />
+              <stop offset="0%" stopColor="#2E6FD8" stopOpacity="0.30" />
               <stop offset="100%" stopColor="#2E6FD8" stopOpacity="0" />
-            </radialGradient>
-            <radialGradient id="hero-floor" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#5AA9FF" stopOpacity="0.6" />
-              <stop offset="100%" stopColor="#5AA9FF" stopOpacity="0" />
             </radialGradient>
           </defs>
 
-          <circle cx="380" cy="260" r="240" fill="url(#hero-glow)" />
-          <circle cx="380" cy="260" r="215" fill="none" stroke="rgba(90,169,255,0.22)" strokeDasharray="3 8" />
-          <circle cx="380" cy="260" r="178" fill="none" stroke="rgba(90,169,255,0.16)" />
-
-          <ellipse cx="380" cy="470" rx="125" ry="19" fill="url(#hero-floor)" />
-          <ellipse cx="380" cy="468" rx="104" ry="13" fill="none" stroke="rgba(90,169,255,0.7)" />
-          <ellipse cx="380" cy="468" rx="76" ry="9" fill="none" stroke="rgba(255,209,0,0.55)" strokeDasharray="3 5" />
+          <circle cx="380" cy="260" r="250" fill="url(#hero-glow)" />
+          <ellipse cx="380" cy="469" rx="118" ry="15" fill="none" stroke="rgba(90,169,255,0.35)" />
 
           {CALLOUTS.map((c) => {
             const status = regions[c.key]?.status ?? 'unknown'
             const ax = AX + c.anchor[0]
             const ay = AY + c.anchor[1]
             const ex = c.side === 'l' ? CHIP_PAD + CHIP_W : W - CHIP_PAD - CHIP_W
+            const mx = (ax + ex) / 2
             return (
-              <line
+              <path
                 key={c.key}
-                x1={ax} y1={ay} x2={ex} y2={c.y}
+                d={`M ${ax} ${ay} C ${mx} ${ay}, ${mx} ${c.y}, ${ex} ${c.y}`}
+                fill="none"
                 stroke={STATUS_COLOR[status]}
-                strokeOpacity={status === 'unknown' ? 0.35 : 0.75}
-                strokeWidth="1.3"
+                strokeOpacity={status === 'unknown' ? 0.25 : 0.55}
+                strokeWidth="1"
               />
             )
           })}
@@ -108,12 +101,13 @@ export default function TwinHero({ regions = {}, selected, onSelect }) {
         <svg viewBox={`0 0 ${W} ${H}`} className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true">
           {CALLOUTS.map((c) => {
             const status = regions[c.key]?.status ?? 'unknown'
+            const cx = AX + c.anchor[0]
+            const cy = AY + c.anchor[1]
             return (
-              <circle
-                key={c.key}
-                cx={AX + c.anchor[0]} cy={AY + c.anchor[1]} r="4"
-                fill="#061A35" stroke={STATUS_COLOR[status]} strokeWidth="2"
-              />
+              <g key={c.key}>
+                <circle cx={cx} cy={cy} r="8" fill={STATUS_COLOR[status]} fillOpacity="0.16" />
+                <circle cx={cx} cy={cy} r="3.5" fill="#061A35" stroke={STATUS_COLOR[status]} strokeWidth="1.6" />
+              </g>
             )
           })}
         </svg>
@@ -128,32 +122,34 @@ export default function TwinHero({ regions = {}, selected, onSelect }) {
               key={c.key}
               type="button"
               onClick={() => onSelect?.(c.key)}
-              className={`absolute z-10 rounded-lg border px-3 py-2 text-left backdrop-blur transition-colors ${
+              className={`absolute z-10 rounded-xl border px-3.5 py-2 text-left backdrop-blur-md transition-all duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFD100] ${
                 active
-                  ? 'border-mission-yellow bg-mission-yellow/10'
-                  : 'border-white/15 bg-space-navy/75 hover:border-white/40'
+                  ? 'border-mission-yellow/70 bg-mission-yellow/10'
+                  : 'border-white/10 bg-[rgba(7,15,36,0.72)] hover:border-white/30 hover:bg-[rgba(14,28,62,0.8)]'
               }`}
               style={{
                 left: `${(chipLeft(c.side) / W) * 100}%`,
                 top: `${(c.y / H) * 100}%`,
                 width: `${(CHIP_W / W) * 100}%`,
                 transform: 'translateY(-50%)',
+                boxShadow: '0 10px 24px -12px rgba(0,0,0,0.7)',
               }}
             >
-              <span className="block font-mono text-[10px] uppercase tracking-[0.14em] text-ice/60">
+              <span className="block text-[12px] font-medium text-ice/60">
                 {REGION_LABELS[c.key]}
               </span>
-              <span className="mt-0.5 flex items-center gap-2 text-sm font-semibold" style={{ color }}>
-                <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: color }} />
+              <span className="mt-0.5 flex items-center gap-2 text-[13px] font-semibold" style={{ color }}>
+                <span
+                  className="h-2 w-2 shrink-0 rounded-full"
+                  style={{ background: color, boxShadow: `0 0 8px ${color}` }}
+                />
                 {STATUS_TEXT[status]}
               </span>
             </button>
           )
         })}
 
-        <p className="absolute bottom-0 left-0 font-mono text-[10px] tracking-[0.18em] text-ice/45">
-          BODY MAP / FRONT VIEW
-        </p>
+        <p className="absolute bottom-0 left-0 text-[11px] text-ice/40">Front view</p>
       </div>
       <TwinLegend />
     </div>

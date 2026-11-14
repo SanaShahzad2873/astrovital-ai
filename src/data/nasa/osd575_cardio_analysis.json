@@ -41,7 +41,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.185Z",
+      "timestamp": "2026-11-14T19:32:16.279Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -98,7 +98,7 @@
         "missing": 0
       },
       "contributingFactors": [
-        "Latest value (R+194) is 3.9 robust deviations from this person's own baseline median of 5.956044797488754.",
+        "Latest value (R+194) is 3.9 robust deviations from this person's own baseline median of 5.956.",
         "EWMA trend crossed its control limit (gradual drift).",
         "CUSUM detected a sustained small shift.",
         "Baseline is based on only 3 observations (low confidence)."
@@ -124,7 +124,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.190Z",
+      "timestamp": "2026-11-14T19:32:16.284Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -205,7 +205,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.190Z",
+      "timestamp": "2026-11-14T19:32:16.285Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -262,7 +262,7 @@
         "missing": 0
       },
       "contributingFactors": [
-        "Latest value (R+194) is -3.3 robust deviations from this person's own baseline median of 6.469586402527706.",
+        "Latest value (R+194) is -3.3 robust deviations from this person's own baseline median of 6.47.",
         "EWMA trend crossed its control limit (gradual drift).",
         "CUSUM detected a sustained small shift.",
         "Baseline is based on only 3 observations (low confidence)."
@@ -288,7 +288,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.191Z",
+      "timestamp": "2026-11-14T19:32:16.285Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -368,7 +368,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.191Z",
+      "timestamp": "2026-11-14T19:32:16.285Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -425,7 +425,7 @@
         "missing": 0
       },
       "contributingFactors": [
-        "Latest value (R+194) is 3.5 robust deviations from this person's own baseline median of 6.0842544591112295.",
+        "Latest value (R+194) is 3.5 robust deviations from this person's own baseline median of 6.084.",
         "EWMA trend crossed its control limit (gradual drift).",
         "CUSUM detected a sustained small shift.",
         "Baseline is based on only 3 observations (low confidence)."
@@ -451,7 +451,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.191Z",
+      "timestamp": "2026-11-14T19:32:16.286Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -531,7 +531,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.191Z",
+      "timestamp": "2026-11-14T19:32:16.286Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -588,7 +588,7 @@
         "missing": 0
       },
       "contributingFactors": [
-        "Latest value (R+194) is 2.9 robust deviations from this person's own baseline median of 6.208656300507248.",
+        "Latest value (R+194) is 2.9 robust deviations from this person's own baseline median of 6.209.",
         "3 consecutive measurements deviate in the same direction (persistence).",
         "EWMA trend crossed its control limit (gradual drift).",
         "CUSUM detected a sustained small shift.",
@@ -615,7 +615,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.192Z",
+      "timestamp": "2026-11-14T19:32:16.286Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -695,7 +695,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.192Z",
+      "timestamp": "2026-11-14T19:32:16.286Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -775,7 +775,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.192Z",
+      "timestamp": "2026-11-14T19:32:16.286Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -832,7 +832,7 @@
         "missing": 0
       },
       "contributingFactors": [
-        "Latest value (R+194) is 2.0 robust deviations from this person's own baseline median of 6.950710399701042.",
+        "Latest value (R+194) is 2.0 robust deviations from this person's own baseline median of 6.951.",
         "Baseline is based on only 3 observations (low confidence)."
       ]
     },
@@ -856,7 +856,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.192Z",
+      "timestamp": "2026-11-14T19:32:16.287Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -936,7 +936,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.192Z",
+      "timestamp": "2026-11-14T19:32:16.287Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -1016,7 +1016,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.193Z",
+      "timestamp": "2026-11-14T19:32:16.287Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -1073,7 +1073,7 @@
         "missing": 0
       },
       "contributingFactors": [
-        "Latest value (R+194) is 4.9 robust deviations from this person's own baseline median of 5.191177244418747.",
+        "Latest value (R+194) is 4.9 robust deviations from this person's own baseline median of 5.191.",
         "EWMA trend crossed its control limit (gradual drift).",
         "CUSUM detected a sustained small shift.",
         "Baseline is based on only 3 observations (low confidence)."
@@ -1099,7 +1099,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.193Z",
+      "timestamp": "2026-11-14T19:32:16.287Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -1180,7 +1180,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.193Z",
+      "timestamp": "2026-11-14T19:32:16.287Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -1260,7 +1260,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.193Z",
+      "timestamp": "2026-11-14T19:32:16.287Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -1340,7 +1340,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.194Z",
+      "timestamp": "2026-11-14T19:32:16.289Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -1420,7 +1420,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.194Z",
+      "timestamp": "2026-11-14T19:32:16.289Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -1477,7 +1477,7 @@
         "missing": 0
       },
       "contributingFactors": [
-        "Latest value (R+194) is -2.4 robust deviations from this person's own baseline median of 3.6050280007665068.",
+        "Latest value (R+194) is -2.4 robust deviations from this person's own baseline median of 3.605.",
         "EWMA trend crossed its control limit (gradual drift).",
         "CUSUM detected a sustained small shift.",
         "Baseline is based on only 3 observations (low confidence)."
@@ -1503,7 +1503,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.195Z",
+      "timestamp": "2026-11-14T19:32:16.289Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -1583,7 +1583,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.195Z",
+      "timestamp": "2026-11-14T19:32:16.289Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -1663,7 +1663,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.195Z",
+      "timestamp": "2026-11-14T19:32:16.289Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -1720,7 +1720,7 @@
         "missing": 0
       },
       "contributingFactors": [
-        "Latest value (R+194) is 12.2 robust deviations from this person's own baseline median of 6.020816887028907.",
+        "Latest value (R+194) is 12.2 robust deviations from this person's own baseline median of 6.021.",
         "EWMA trend crossed its control limit (gradual drift).",
         "CUSUM detected a sustained small shift.",
         "Baseline is based on only 3 observations (low confidence)."
@@ -1748,7 +1748,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.195Z",
+      "timestamp": "2026-11-14T19:32:16.289Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -1805,7 +1805,7 @@
         "missing": 1
       },
       "contributingFactors": [
-        "Latest value (R+194) is 2.4 robust deviations from this person's own baseline median of 6.505787380362578.",
+        "Latest value (R+194) is 2.4 robust deviations from this person's own baseline median of 6.506.",
         "1 of 4 measurements were missing and ignored.",
         "Baseline is based on only 3 observations (low confidence).",
         "Values at R+82 equal a value repeated 7 times in this analyte (17907000 ng/ml); cause unverified, treated as possibly censored and excluded."
@@ -1833,7 +1833,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.195Z",
+      "timestamp": "2026-11-14T19:32:16.289Z",
       "baseline": {
         "status": "insufficient",
         "n": 2,
@@ -1878,7 +1878,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.195Z",
+      "timestamp": "2026-11-14T19:32:16.290Z",
       "baseline": {
         "status": "insufficient",
         "n": 1,
@@ -1917,7 +1917,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.195Z",
+      "timestamp": "2026-11-14T19:32:16.290Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -1974,7 +1974,7 @@
         "missing": 0
       },
       "contributingFactors": [
-        "Latest value (R+194) is 2.4 robust deviations from this person's own baseline median of 5.749313352586546.",
+        "Latest value (R+194) is 2.4 robust deviations from this person's own baseline median of 5.749.",
         "EWMA trend crossed its control limit (gradual drift).",
         "CUSUM detected a sustained small shift.",
         "Baseline is based on only 3 observations (low confidence)."
@@ -2000,7 +2000,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.195Z",
+      "timestamp": "2026-11-14T19:32:16.290Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -2082,7 +2082,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.195Z",
+      "timestamp": "2026-11-14T19:32:16.290Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -2162,7 +2162,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.196Z",
+      "timestamp": "2026-11-14T19:32:16.290Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -2242,7 +2242,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.196Z",
+      "timestamp": "2026-11-14T19:32:16.290Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -2324,7 +2324,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.196Z",
+      "timestamp": "2026-11-14T19:32:16.290Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -2404,7 +2404,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.197Z",
+      "timestamp": "2026-11-14T19:32:16.290Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -2484,7 +2484,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.197Z",
+      "timestamp": "2026-11-14T19:32:16.290Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -2564,7 +2564,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.197Z",
+      "timestamp": "2026-11-14T19:32:16.291Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -2621,7 +2621,7 @@
         "missing": 0
       },
       "contributingFactors": [
-        "Latest value (R+194) is 2.2 robust deviations from this person's own baseline median of 6.734639838987699.",
+        "Latest value (R+194) is 2.2 robust deviations from this person's own baseline median of 6.735.",
         "EWMA trend crossed its control limit (gradual drift).",
         "CUSUM detected a sustained small shift.",
         "Baseline is based on only 3 observations (low confidence)."
@@ -2647,7 +2647,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.197Z",
+      "timestamp": "2026-11-14T19:32:16.291Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -2728,7 +2728,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.197Z",
+      "timestamp": "2026-11-14T19:32:16.291Z",
       "baseline": {
         "status": "ready",
         "n": 3,
@@ -2785,7 +2785,7 @@
         "missing": 0
       },
       "contributingFactors": [
-        "Latest value (R+194) is -2.3 robust deviations from this person's own baseline median of 7.219663100737022.",
+        "Latest value (R+194) is -2.3 robust deviations from this person's own baseline median of 7.22.",
         "Baseline is based on only 3 observations (low confidence)."
       ]
     },
@@ -2809,7 +2809,7 @@
       "datasetId": "OSD-575",
       "direction": "both",
       "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
-      "timestamp": "2026-11-14T19:13:39.197Z",
+      "timestamp": "2026-11-14T19:32:16.291Z",
       "baseline": {
         "status": "ready",
         "n": 3,

@@ -10,7 +10,7 @@ export default function AppShell() {
   const title = NAV_ITEMS.find((n) => n.path === pathname)?.label ?? 'AstroVital AI'
 
   return (
-    <div className="flex h-full bg-space-navy">
+    <div className="flex h-full">
       <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} />
       <div className="flex min-w-0 flex-1 flex-col">
         <Header title={title} onMenuClick={() => setMenuOpen(true)} />

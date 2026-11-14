@@ -1,4 +1,4 @@
-8// src/engine/sleepSimulator.js
+// src/engine/sleepSimulator.js
 // Seeded DEMO sleep data for the Brain & Sleep domain.
 // EVERYTHING produced here is labelled SIMULATED_DEMO. It is NOT NASA data and NOT measured.
 //
@@ -23,7 +23,7 @@ export const SLEEP_DEFAULTS = {
 };
 
 // Small seeded random generator (mulberry32). Not cryptographic, just repeatable.
-function makeRng(seed) {
+export function makeRng(seed) {
   let a = seed >>> 0;
   return () => {
     a = (a + 0x6d2b79f5) >>> 0;
@@ -35,7 +35,7 @@ function makeRng(seed) {
 }
 
 // Normal-distributed noise from two uniform numbers (Box-Muller).
-function gaussian(rng) {
+export function gaussian(rng) {
   const u = Math.max(rng(), 1e-12);
   const v = rng();
   return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
@@ -90,7 +90,7 @@ export function runSleepDemo(userConfig = {}) {
 }
 
 // Run directly:  node src/engine/sleepSimulator.js
-if (process.argv[1]?.endsWith('sleepSimulator.js')) {
+if (typeof process !== 'undefined' && process.argv?.[1]?.endsWith('sleepSimulator.js')) {
   const demo = runSleepDemo();
   console.log('SIMULATED_DEMO sleep scenario:', demo.config.scenario, '| seed', demo.config.seed);
   console.log('night  hours  status');

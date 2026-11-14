@@ -5,6 +5,8 @@
 @import "@fontsource/barlow/600.css";
 @import "@fontsource/barlow-condensed/600.css";
 @import "@fontsource/barlow-condensed/700.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
 
 @theme {
   /* Official AstroVital palette */
@@ -13,6 +15,7 @@
   --color-mission-yellow: #FFD100;
   --color-ice: #DCE6F1;
   --color-nasa-red: #FC3D21;
+  --color-signal: #2E6FD8;
 
   /* Slightly lighter navy for cards and panels */
   --color-panel: #0A2447;
@@ -28,6 +31,7 @@
   /* Typography */
   --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
   --font-sans: "Barlow", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 }
 
 @layer base {
@@ -52,4 +56,81 @@
 * {
   scrollbar-width: thin;
   scrollbar-color: rgba(220, 230, 241, 0.25) transparent;
+}
+/* Astronaut twin: remove the browser's box outline, show a yellow region outline instead */
+svg g[role="button"]:focus,
+svg g[role="button"]:focus-visible {
+  outline: none;
+}
+svg g[role="button"]:focus-visible > * {
+  stroke: var(--color-mission-yellow);
+  stroke-width: 4px;
+}
+/* ---------- Visual upgrade v2 ---------- */
+body {
+  background:
+    radial-gradient(900px 480px at 80% -10%, rgba(11, 61, 145, 0.45), transparent 60%),
+    var(--color-space-navy);
+  background-attachment: fixed;
+}
+
+/* Faint engineering grid instead of stars */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(220, 230, 241, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(220, 230, 241, 0.04) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse at 70% 0%, black 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse at 70% 0%, black 0%, transparent 75%);
+}
+#root { position: relative; z-index: 1; }
+
+.glass-card {
+  background: linear-gradient(180deg, rgba(11, 61, 145, 0.28), rgba(6, 26, 53, 0.78));
+  border: 1px solid rgba(46, 111, 216, 0.35);
+  border-radius: 0.875rem;
+  box-shadow:
+    0 0 0 1px rgba(46, 111, 216, 0.06),
+    0 0 28px -10px rgba(46, 111, 216, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+}
+
+/* Hero stage: radial glow behind the astronaut twin */
+.hero-stage {
+  background:
+    radial-gradient(ellipse at 50% 55%, rgba(46, 111, 216, 0.28), transparent 62%),
+    linear-gradient(180deg, rgba(11, 61, 145, 0.2), rgba(6, 26, 53, 0.85));
+}
+
+/* Small telemetry-style label */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(220, 230, 241, 0.6);
+}
+
+/* Big numbers */
+.num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+/* Orbit animation for the twin stage */
+@keyframes orbit-spin { to { transform: rotate(360deg); } }
+.orbit-spin {
+  transform-box: view-box;
+  transform-origin: 200px 280px;
+  animation: orbit-spin 28s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbit-spin { animation: none; }
 }

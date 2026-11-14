@@ -1,22 +1,22 @@
+// Data-honesty label required by the project rules: every displayed value
+// must say where it comes from. Compact, quiet, but always visible.
 const SOURCES = {
-  NASA_RESEARCH:  { label: 'NASA Research',  cls: 'border-nasa-blue bg-nasa-blue/40 text-white' },
-  MEASURED:       { label: 'Measured',       cls: 'border-status-optimal/50 text-status-optimal' },
-  SELF_REPORTED:  { label: 'Self-reported',  cls: 'border-ice/40 text-ice' },
-  SIMULATED_DEMO: { label: 'Simulated demo', cls: 'border-dashed border-mission-yellow/60 text-mission-yellow' },
+  NASA_RESEARCH: { text: 'NASA research', color: '#5AA9FF' },
+  MEASURED: { text: 'Measured', color: '#22C55E' },
+  SELF_REPORTED: { text: 'Self-reported', color: '#B9A5FF' },
+  SIMULATED_DEMO: { text: 'Simulated demo', color: '#FFD100' },
 }
 
-export default function SourceTag({ source }) {
-  const s = SOURCES[source]
-  if (!s) {
-    return (
-      <span className="rounded border border-dashed border-white/30 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-ice/70">
-        Source unknown
-      </span>
-    )
-  }
+export default function SourceTag({ source, className = '' }) {
+  if (!source) return null
+  const s = SOURCES[source] ?? { text: String(source).replace(/_/g, ' ').toLowerCase(), color: '#DCE6F1' }
   return (
-    <span className={`rounded border px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${s.cls}`}>
-      {s.label}
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 text-[11px] font-medium text-ice/75 ${className}`}
+      title={`Data source: ${s.text}`}
+    >
+      <span className="h-1.5 w-1.5 rounded-full" style={{ background: s.color }} aria-hidden="true" />
+      {s.text}
     </span>
   )
 }

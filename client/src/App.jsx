@@ -8,6 +8,7 @@ import Cardiovascular from './pages/Cardiovascular'
 import BrainSleep from './pages/BrainSleep'
 import Radiation from './pages/Radiation'
 import MuscleBone from './pages/MuscleBone'
+import ResearchLibrary from './pages/ResearchLibrary'
 
 const PAGES = {
   '/': <CommandCenter />,
@@ -16,6 +17,7 @@ const PAGES = {
   '/brain-sleep': <BrainSleep />,
   '/radiation': <Radiation />,
   '/musculoskeletal': <MuscleBone />,
+  '/research': <ResearchLibrary />,
 }
 
 export default function App() {

@@ -90,7 +90,7 @@ export function runSleepDemo(userConfig = {}) {
 }
 
 // Run directly:  node src/engine/sleepSimulator.js
-if (process.argv[1]?.endsWith('sleepSimulator.js')) {
+if (typeof process !== 'undefined' && process.argv?.[1]?.endsWith('sleepSimulator.js')) {
   const demo = runSleepDemo();
   console.log('SIMULATED_DEMO sleep scenario:', demo.config.scenario, '| seed', demo.config.seed);
   console.log('night  hours  status');

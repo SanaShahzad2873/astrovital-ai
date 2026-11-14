@@ -1,0 +1,2873 @@
+{
+  "dataset_id": "OSD-575",
+  "panel": "Eve Technologies cardiovascular panel (HDCVD9), serum",
+  "notes": [
+    "Research blood biomarkers, not heart rate or HRV.",
+    "Baseline = 3 preflight samples per astronaut (L-92, L-44, L-3): confidence is LOW.",
+    "Deviations from a personal baseline are not diagnoses.",
+    "Values were compared on a log10 scale; original values are preserved in original_values.",
+    "Suspicious repeated values excluded (cause unverified): {\"Haptoglobin\":{\"value\":17907000,\"times\":7}}",
+    "Thresholds are configurable demonstration rules, not clinical limits."
+  ],
+  "baseline_timepoints": [
+    "L-92",
+    "L-44",
+    "L-3"
+  ],
+  "observation_timepoints": [
+    "R+1",
+    "R+45",
+    "R+82",
+    "R+194"
+  ],
+  "results": [
+    {
+      "subject_id": "C001",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 903742.69,
+        "L-44": 657943.56,
+        "L-3": 1002300,
+        "R+1": 1048700,
+        "R+45": 1130800,
+        "R+82": 2993600,
+        "R+194": 1651200
+      },
+      "censored_timepoints": [],
+      "signal": "a-2 Macroglobulin",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.604Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 5.956044797488754,
+        "mad": 0.04495293286904012,
+        "scale": 0.06664721827163887,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "high",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 6.217799679947118,
+        "z": 3.9274689813986043,
+        "status": "high"
+      },
+      "detectors": {
+        "ewmaAlarm": true,
+        "cusumAlarm": true,
+        "persistentRun": 2,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 6.020651268004342,
+          "z": 0.969379850967934,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 6.053385799817482,
+          "z": 1.4605411126386205,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 6.476193770155935,
+          "z": 7.8045113683090666,
+          "status": "high"
+        },
+        {
+          "label": "R+194",
+          "value": 6.217799679947118,
+          "z": 3.9274689813986043,
+          "status": "high"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Latest value (R+194) is 3.9 robust deviations from this person's own baseline median of 5.956.",
+        "EWMA trend crossed its control limit (gradual drift).",
+        "CUSUM detected a sustained small shift.",
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C002",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 2036900,
+        "L-44": 734243.34,
+        "L-3": 1892200,
+        "R+1": 913857.15,
+        "R+45": 1820800,
+        "R+82": 1403700,
+        "R+194": 2342900
+      },
+      "censored_timepoints": [],
+      "signal": "a-2 Macroglobulin",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.604Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 6.276967038147092,
+        "mad": 0.032002670031157976,
+        "scale": 0.05,
+        "scaleMethod": "mad+floor",
+        "reason": null
+      },
+      "status": "attention",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 6.369753752372034,
+        "z": 1.8557342844988511,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": true,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 5.9608783140978225,
+          "z": -6.321774480985383,
+          "status": "high"
+        },
+        {
+          "label": "R+45",
+          "value": 6.260262244714977,
+          "z": -0.33409586864229013,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 6.147274299911842,
+          "z": -2.593854764704986,
+          "status": "attention"
+        },
+        {
+          "label": "R+194",
+          "value": 6.369753752372034,
+          "z": 1.8557342844988511,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "CUSUM detected a sustained small shift.",
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C003",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 3030400,
+        "L-44": 531433.88,
+        "L-3": 2948400,
+        "R+1": 3051700,
+        "R+45": 2895000,
+        "R+82": 2127300,
+        "R+194": 2025600
+      },
+      "censored_timepoints": [],
+      "signal": "a-2 Macroglobulin",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.604Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 6.469586402527706,
+        "mad": 0.011913554795473402,
+        "scale": 0.05,
+        "scaleMethod": "mad+floor",
+        "reason": null
+      },
+      "status": "attention",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 6.306553688337261,
+        "z": -3.260654283808897,
+        "status": "attention"
+      },
+      "detectors": {
+        "ewmaAlarm": true,
+        "cusumAlarm": true,
+        "persistentRun": 2,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 6.484541837687687,
+          "z": 0.2991087031996287,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 6.461648568063455,
+          "z": -0.1587566892850134,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 6.3278287400941995,
+          "z": -2.835153248670128,
+          "status": "attention"
+        },
+        {
+          "label": "R+194",
+          "value": 6.306553688337261,
+          "z": -3.260654283808897,
+          "status": "attention"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Latest value (R+194) is -3.3 robust deviations from this person's own baseline median of 6.47.",
+        "EWMA trend crossed its control limit (gradual drift).",
+        "CUSUM detected a sustained small shift.",
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C004",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 1354300,
+        "L-44": 634017.94,
+        "L-3": 1780800,
+        "R+1": 1651200,
+        "R+45": 1526000,
+        "R+82": 1785900,
+        "R+194": 1568600
+      },
+      "censored_timepoints": [],
+      "signal": "a-2 Macroglobulin",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.604Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 6.131714878465068,
+        "mad": 0.11890026852556446,
+        "scale": 0.17628153811600186,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "normal",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 6.195512210674072,
+        "z": 0.36190591987586224,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 6.217799679947118,
+          "z": 0.4883370227085335,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 6.183554533618862,
+          "z": 0.2940730816614534,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 6.251857137271416,
+          "z": 0.6815362521246437,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 6.195512210674072,
+          "z": 0.36190591987586224,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C001",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 1048700,
+        "L-44": 1745700,
+        "L-3": 1214100,
+        "R+1": 1034400,
+        "R+45": 1285200,
+        "R+82": 2455500,
+        "R+194": 2595800
+      },
+      "censored_timepoints": [],
+      "signal": "AGP",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.605Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 6.0842544591112295,
+        "mad": 0.06360319110688728,
+        "scale": 0.09429809113507108,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "attention",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 6.41427122809658,
+        "z": 3.4997184461840254,
+        "status": "attention"
+      },
+      "detectors": {
+        "ewmaAlarm": true,
+        "cusumAlarm": true,
+        "persistentRun": 2,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 6.014688511872338,
+          "z": -0.7377238118133961,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 6.1089707168794805,
+          "z": 0.2621077210656126,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 6.390139938467622,
+          "z": 3.243814118339334,
+          "status": "attention"
+        },
+        {
+          "label": "R+194",
+          "value": 6.41427122809658,
+          "z": 3.4997184461840254,
+          "status": "attention"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Latest value (R+194) is 3.5 robust deviations from this person's own baseline median of 6.084.",
+        "EWMA trend crossed its control limit (gradual drift).",
+        "CUSUM detected a sustained small shift.",
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C002",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 2932000,
+        "L-44": 1963300,
+        "L-3": 3653700,
+        "R+1": 942754.34,
+        "R+45": 2479200,
+        "R+82": 2968900,
+        "R+194": 2220700
+      },
+      "censored_timepoints": [],
+      "signal": "AGP",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.605Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 6.467163965969091,
+        "mad": 0.09556891922221844,
+        "scale": 0.14169047963886106,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "normal",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 6.346489892567084,
+        "z": -0.851673829530248,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 5.97439854037091,
+          "z": -3.4777595986274834,
+          "status": "attention"
+        },
+        {
+          "label": "R+45",
+          "value": 6.394311563231226,
+          "z": -0.5141658276798119,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 6.472595569714741,
+          "z": 0.03833428865153504,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 6.346489892567084,
+          "z": -0.851673829530248,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C003",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 1850900,
+        "L-44": 1068100,
+        "L-3": 1616800,
+        "R+1": 1559000,
+        "R+45": 3046500,
+        "R+82": 3249500,
+        "R+194": 2912600
+      },
+      "censored_timepoints": [],
+      "signal": "AGP",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.605Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 6.208656300507248,
+        "mad": 0.058726654916986476,
+        "scale": 0.08706813857992414,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "attention",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 6.464280845176612,
+        "z": 2.9359137434035474,
+        "status": "attention"
+      },
+      "detectors": {
+        "ewmaAlarm": true,
+        "cusumAlarm": true,
+        "persistentRun": 3,
+        "persistent": true
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 6.192846115188842,
+          "z": -0.1815840510233615,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 6.483801182460488,
+          "z": 3.1601098454708687,
+          "status": "attention"
+        },
+        {
+          "label": "R+82",
+          "value": 6.51181654130309,
+          "z": 3.4818734584242463,
+          "status": "attention"
+        },
+        {
+          "label": "R+194",
+          "value": 6.464280845176612,
+          "z": 2.9359137434035474,
+          "status": "attention"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Latest value (R+194) is 2.9 robust deviations from this person's own baseline median of 6.209.",
+        "3 consecutive measurements deviate in the same direction (persistence).",
+        "EWMA trend crossed its control limit (gradual drift).",
+        "CUSUM detected a sustained small shift.",
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C004",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 2918800,
+        "L-44": 2165100,
+        "L-3": 3606700,
+        "R+1": 3338700,
+        "R+45": 3484600,
+        "R+82": 2651400,
+        "R+194": 4564200
+      },
+      "censored_timepoints": [],
+      "signal": "AGP",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.605Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 6.46520433758063,
+        "mad": 0.0919056822639277,
+        "scale": 0.13625936452449922,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "normal",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 6.6593646666386626,
+        "z": 1.4249320018157194,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 6.523577397132255,
+          "z": 0.4283966812506978,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 6.5421529322868315,
+          "z": 0.5647215145522433,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 6.423475251945937,
+          "z": -0.30624746989180635,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 6.6593646666386626,
+          "z": 1.4249320018157194,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C001",
+      "transform": "log10",
+      "original_unit": "pg/ml",
+      "original_values": {
+        "L-92": 18385000,
+        "L-44": 2191000,
+        "L-3": 5131700,
+        "R+1": 10637600,
+        "R+45": 6713900,
+        "R+82": 25030000,
+        "R+194": 15415000
+      },
+      "censored_timepoints": [],
+      "signal": "CRP",
+      "unit": "log10(pg/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.605Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 6.710261259520343,
+        "mad": 0.36961888195963777,
+        "scale": 0.5479969543933589,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "normal",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 7.187943529062527,
+        "z": 0.8716878181758975,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 7.0268436557477845,
+          "z": 0.5777083133206516,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 6.826974868372878,
+          "z": 0.212982221738329,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 7.398460849608223,
+          "z": 1.2558456476272344,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 7.187943529062527,
+          "z": 0.8716878181758975,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C002",
+      "transform": "log10",
+      "original_unit": "pg/ml",
+      "original_values": {
+        "L-92": 8927100,
+        "L-44": 1568500,
+        "L-3": 11967000,
+        "R+1": 9311500,
+        "R+45": 3677200,
+        "R+82": 8633700,
+        "R+194": 21462000
+      },
+      "censored_timepoints": [],
+      "signal": "CRP",
+      "unit": "log10(pg/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.605Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 6.950710399701042,
+        "mad": 0.12727489132845982,
+        "scale": 0.18869775388357451,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "attention",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 7.331670190532614,
+        "z": 2.0188888473289497,
+        "status": "attention"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 1,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 6.969019647603179,
+          "z": 0.09702949571638303,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 6.56551725144467,
+          "z": -2.0413234409458516,
+          "status": "attention"
+        },
+        {
+          "label": "R+82",
+          "value": 6.936196953909298,
+          "z": -0.07691371780025892,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 7.331670190532614,
+          "z": 2.0188888473289497,
+          "status": "attention"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Latest value (R+194) is 2.0 robust deviations from this person's own baseline median of 6.951.",
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C003",
+      "transform": "log10",
+      "original_unit": "pg/ml",
+      "original_values": {
+        "L-92": 75749000,
+        "L-44": 9383100,
+        "L-3": 42838000,
+        "R+1": 83617000,
+        "R+45": 39190000,
+        "R+82": 12680000,
+        "R+194": 9379400
+      },
+      "censored_timepoints": [],
+      "signal": "CRP",
+      "unit": "log10(pg/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.607Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 7.63182918650063,
+        "mad": 0.24754771737538217,
+        "scale": 0.3670142457807416,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "normal",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 6.972175057459714,
+        "z": -1.7973529273711086,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 7.922294581932193,
+          "z": 0.7914281223979804,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 7.593175263478103,
+          "z": -0.10531995274542882,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 7.103119253545714,
+          "z": -1.4405706019127478,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 6.972175057459714,
+          "z": -1.7973529273711086,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C004",
+      "transform": "log10",
+      "original_unit": "pg/ml",
+      "original_values": {
+        "L-92": 21378000,
+        "L-44": 1289600,
+        "L-3": 13742000,
+        "R+1": 17701000,
+        "R+45": 22407000,
+        "R+82": 7902300,
+        "R+194": 46006000
+      },
+      "censored_timepoints": [],
+      "signal": "CRP",
+      "unit": "log10(pg/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.607Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 7.13804994420489,
+        "mad": 0.19191712852976917,
+        "scale": 0.28453633475823575,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "normal",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 7.662814475093854,
+        "z": 1.8442795059367196,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 7.24799780208012,
+          "z": 0.3864106071678005,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 7.350383714158389,
+          "z": 0.7462448341928443,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 6.897753513053783,
+          "z": -0.8445193172087538,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 7.662814475093854,
+          "z": 1.8442795059367196,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C001",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 144424.41,
+        "L-44": 194978.74,
+        "L-3": 155302.07,
+        "R+1": 163848.05,
+        "R+45": 159096.21,
+        "R+82": 300149.84,
+        "R+194": 273640.25
+      },
+      "censored_timepoints": [],
+      "signal": "Fetuin A36",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.608Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 5.191177244418747,
+        "mad": 0.031536642373672485,
+        "scale": 0.05,
+        "scaleMethod": "mad+floor",
+        "reason": null
+      },
+      "status": "high",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 5.437179978527731,
+        "z": 4.920054682179682,
+        "status": "high"
+      },
+      "detectors": {
+        "ewmaAlarm": true,
+        "cusumAlarm": true,
+        "persistentRun": 2,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 5.214441277092949,
+          "z": 0.4652806534840437,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 5.2016598339791305,
+          "z": 0.20965179120766564,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 5.477338116183861,
+          "z": 5.723217435302281,
+          "status": "high"
+        },
+        {
+          "label": "R+194",
+          "value": 5.437179978527731,
+          "z": 4.920054682179682,
+          "status": "high"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Latest value (R+194) is 4.9 robust deviations from this person's own baseline median of 5.191.",
+        "EWMA trend crossed its control limit (gradual drift).",
+        "CUSUM detected a sustained small shift.",
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C002",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 276877.57,
+        "L-44": 190495.51,
+        "L-3": 294376.04,
+        "R+1": 125785.45,
+        "R+45": 270655.44,
+        "R+82": 253558.23,
+        "R+194": 241485.24
+      },
+      "censored_timepoints": [],
+      "signal": "Fetuin A36",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.608Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 5.442287774742363,
+        "mad": 0.026614684050653814,
+        "scale": 0.05,
+        "scaleMethod": "mad+floor",
+        "reason": null
+      },
+      "status": "attention",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 5.382890591060824,
+        "z": -1.1879436736307802,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": true,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 5.099630407801094,
+          "z": -6.853147338825387,
+          "status": "high"
+        },
+        {
+          "label": "R+45",
+          "value": 5.432416760554139,
+          "z": -0.19742028376448673,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 5.4040777114548995,
+          "z": -0.7642012657492714,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 5.382890591060824,
+          "z": -1.1879436736307802,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "CUSUM detected a sustained small shift.",
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C003",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 357755.04,
+        "L-44": 188579.51,
+        "L-3": 373933.42,
+        "R+1": 334021.3,
+        "R+45": 271898.71,
+        "R+82": 316530.95,
+        "R+194": 295881.1
+      },
+      "censored_timepoints": [],
+      "signal": "Fetuin A36",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.608Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 5.553585760751229,
+        "mad": 0.019208520859186784,
+        "scale": 0.05,
+        "scaleMethod": "mad+floor",
+        "reason": null
+      },
+      "status": "normal",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 5.471117224613628,
+        "z": -1.6493707227520282,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 5.523774161953823,
+          "z": -0.5962319759481183,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 5.434407147119642,
+          "z": -2.383572272631742,
+          "status": "attention"
+        },
+        {
+          "label": "R+82",
+          "value": 5.500416181200297,
+          "z": -1.0633915910186431,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 5.471117224613628,
+          "z": -1.6493707227520282,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C004",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 253064.34,
+        "L-44": 180155.97,
+        "L-3": 329448.71,
+        "R+1": 280617.78,
+        "R+45": 287113.08,
+        "R+82": 245913.55,
+        "R+194": 285112.88
+      },
+      "censored_timepoints": [],
+      "signal": "Fetuin A36",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.608Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 5.403230951826261,
+        "mad": 0.11455685952313566,
+        "scale": 0.16984199992900093,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "normal",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 5.4550168370449095,
+        "z": 0.3049062377992276,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 5.448115184551418,
+          "z": 0.26427051461899903,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 5.458052978084895,
+          "z": 0.32278250539649406,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 5.390782459312534,
+          "z": -0.07329454739658359,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 5.4550168370449095,
+          "z": 0.3049062377992276,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C001",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 3208.77,
+        "L-44": 5707.32,
+        "L-3": 2780.38,
+        "R+1": 2604.7,
+        "R+45": 2732.11,
+        "R+82": 2513.02,
+        "R+194": 4587.13
+      },
+      "censored_timepoints": [],
+      "signal": "Fibrinogen",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.608Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 3.50633858860979,
+        "mad": 0.06223443275466645,
+        "scale": 0.09226877000206847,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "normal",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 3.6615410482816713,
+        "z": 1.682069238252572,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 3.4157577100357908,
+          "z": -0.9817067960477722,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 3.4364981808921056,
+          "z": -0.7569235800598507,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 3.4001959449614874,
+          "z": -1.1503636999379458,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 3.6615410482816713,
+          "z": 1.682069238252572,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C002",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 3657,
+        "L-44": 4027.43,
+        "L-3": 6533.18,
+        "R+1": 1999.88,
+        "R+45": 4074.55,
+        "R+82": 3279.23,
+        "R+194": 2852.5
+      },
+      "censored_timepoints": [],
+      "signal": "Fibrinogen",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.608Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 3.6050280007665068,
+        "mad": 0.04190304042846238,
+        "scale": 0.06212544773923832,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "attention",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 3.455225653090252,
+        "z": -2.411288016869129,
+        "status": "attention"
+      },
+      "detectors": {
+        "ewmaAlarm": true,
+        "cusumAlarm": true,
+        "persistentRun": 1,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 3.3010039372133058,
+          "z": -4.893712232534623,
+          "status": "high"
+        },
+        {
+          "label": "R+45",
+          "value": 3.6100796515279208,
+          "z": 0.08131371193681382,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 3.515771878464965,
+          "z": -1.4367079119683763,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 3.455225653090252,
+          "z": -2.411288016869129,
+          "status": "attention"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Latest value (R+194) is -2.4 robust deviations from this person's own baseline median of 3.605.",
+        "EWMA trend crossed its control limit (gradual drift).",
+        "CUSUM detected a sustained small shift.",
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C003",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 4153.93,
+        "L-44": 3723.84,
+        "L-3": 4609.49,
+        "R+1": 4531.17,
+        "R+45": 4491.95,
+        "R+82": 4447.08,
+        "R+194": 4334.63
+      },
+      "censored_timepoints": [],
+      "signal": "Fibrinogen",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.608Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 3.6184591737422003,
+        "mad": 0.045193703396189555,
+        "scale": 0.06700418465519063,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "normal",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 3.6369520324197864,
+        "z": 0.27599557807847314,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 3.656210356303426,
+          "z": 0.5634152964549402,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 3.6524349134743384,
+          "z": 0.507068922739381,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 3.64807494218697,
+          "z": 0.4419987885409708,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 3.6369520324197864,
+          "z": 0.27599557807847314,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C004",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 3226.41,
+        "L-44": 3602.38,
+        "L-3": 5428.66,
+        "R+1": 4187.89,
+        "R+45": 2840.5,
+        "R+82": 3553.01,
+        "R+194": 4390.9
+      },
+      "censored_timepoints": [],
+      "signal": "Fibrinogen",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.608Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 3.556589522808488,
+        "mad": 0.04786996774579366,
+        "scale": 0.07097201417991368,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "normal",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 3.6425535464319383,
+        "z": 1.2112383256523074,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 3.6219952658863646,
+          "z": 0.9215709013425138,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 3.4533947936132776,
+          "z": -1.454020016025079,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 3.550596429819389,
+          "z": -0.08444304502766853,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 3.6425535464319383,
+          "z": 1.2112383256523074,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C001",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 1049100,
+        "L-44": 122441.48,
+        "L-3": 1305900,
+        "R+1": 853104.4,
+        "R+45": 1864800,
+        "R+82": 13593000,
+        "R+194": 55113000
+      },
+      "censored_timepoints": [],
+      "signal": "Haptoglobin",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.608Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 6.020816887028907,
+        "mad": 0.09509303484815401,
+        "scale": 0.14098493346587312,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "high",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 7.741254051888921,
+        "z": 12.20298596854297,
+        "status": "high"
+      },
+      "detectors": {
+        "ewmaAlarm": true,
+        "cusumAlarm": true,
+        "persistentRun": 2,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 5.931002181893782,
+          "z": -0.6370517964379904,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 6.27063226051252,
+          "z": 1.7719295767450445,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 7.133315316898848,
+          "z": 7.890902967580098,
+          "status": "high"
+        },
+        {
+          "label": "R+194",
+          "value": 7.741254051888921,
+          "z": 12.20298596854297,
+          "status": "high"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Latest value (R+194) is 12.2 robust deviations from this person's own baseline median of 6.021.",
+        "EWMA trend crossed its control limit (gradual drift).",
+        "CUSUM detected a sustained small shift.",
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C002",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 3204700,
+        "L-44": 80330.74,
+        "L-3": 3825900,
+        "R+1": 568223.15,
+        "R+45": 3442000,
+        "R+82": 17907000,
+        "R+194": 6036000
+      },
+      "censored_timepoints": [
+        "R+82"
+      ],
+      "signal": "Haptoglobin",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.608Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 6.505787380362578,
+        "mad": 0.07694623404387002,
+        "scale": 0.1140804865934417,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "attention",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 6.780749231103552,
+        "z": 2.4102443717730595,
+        "status": "attention"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 1,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 5.754518923354622,
+          "z": -6.585424724609693,
+          "status": "high"
+        },
+        {
+          "label": "R+45",
+          "value": 6.536810865991542,
+          "z": 0.27194384031271696,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": null,
+          "z": null,
+          "status": "missing"
+        },
+        {
+          "label": "R+194",
+          "value": 6.780749231103552,
+          "z": 2.4102443717730595,
+          "status": "attention"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 3,
+        "missing": 1
+      },
+      "contributingFactors": [
+        "Latest value (R+194) is 2.4 robust deviations from this person's own baseline median of 6.506.",
+        "1 of 4 measurements were missing and ignored.",
+        "Baseline is based on only 3 observations (low confidence).",
+        "Values at R+82 equal a value repeated 7 times in this analyte (17907000 ng/ml); cause unverified, treated as possibly censored and excluded."
+      ]
+    },
+    {
+      "subject_id": "C003",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 17907000,
+        "L-44": 203473.61,
+        "L-3": 6263200,
+        "R+1": 5442300,
+        "R+45": 14476000,
+        "R+82": 11995000,
+        "R+194": 2571500
+      },
+      "censored_timepoints": [
+        "L-92"
+      ],
+      "signal": "Haptoglobin",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.608Z",
+      "baseline": {
+        "status": "insufficient",
+        "n": 2,
+        "confidence": "none",
+        "median": null,
+        "mad": null,
+        "scale": null,
+        "scaleMethod": null,
+        "reason": "Need at least 3 observations, found 2."
+      },
+      "status": "unknown",
+      "confidence": "none",
+      "points": [],
+      "contributingFactors": [
+        "Need at least 3 observations, found 2.",
+        "Values at L-92 equal a value repeated 7 times in this analyte (17907000 ng/ml); cause unverified, treated as possibly censored and excluded."
+      ]
+    },
+    {
+      "subject_id": "C004",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 17907000,
+        "L-44": 73870.48,
+        "L-3": 17907000,
+        "R+1": 17907000,
+        "R+45": 17907000,
+        "R+82": 2919100,
+        "R+194": 17907000
+      },
+      "censored_timepoints": [
+        "L-92",
+        "L-3",
+        "R+1",
+        "R+45",
+        "R+194"
+      ],
+      "signal": "Haptoglobin",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.608Z",
+      "baseline": {
+        "status": "insufficient",
+        "n": 1,
+        "confidence": "none",
+        "median": null,
+        "mad": null,
+        "scale": null,
+        "scaleMethod": null,
+        "reason": "Need at least 3 observations, found 1."
+      },
+      "status": "unknown",
+      "confidence": "none",
+      "points": [],
+      "contributingFactors": [
+        "Need at least 3 observations, found 1.",
+        "Values at L-92, L-3, R+1, R+45, R+194 equal a value repeated 7 times in this analyte (17907000 ng/ml); cause unverified, treated as possibly censored and excluded."
+      ]
+    },
+    {
+      "subject_id": "C001",
+      "transform": "log10",
+      "original_unit": "pg/ml",
+      "original_values": {
+        "L-92": 515957.2,
+        "L-44": 675114.37,
+        "L-3": 561452.93,
+        "R+1": 596429.89,
+        "R+45": 568449.05,
+        "R+82": 1266600,
+        "R+194": 762532.23
+      },
+      "censored_timepoints": [],
+      "signal": "L-Selectin",
+      "unit": "log10(pg/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.608Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 5.749313352586546,
+        "mad": 0.036699675329019854,
+        "scale": 0.054410938642804836,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "attention",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 5.882258204760246,
+        "z": 2.4433478908800437,
+        "status": "attention"
+      },
+      "detectors": {
+        "ewmaAlarm": true,
+        "cusumAlarm": true,
+        "persistentRun": 2,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 5.775559399933181,
+          "z": 0.4823671122259936,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 5.754691545021191,
+          "z": 0.09884395617491581,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 6.1026394836913,
+          "z": 6.493659913207132,
+          "status": "high"
+        },
+        {
+          "label": "R+194",
+          "value": 5.882258204760246,
+          "z": 2.4433478908800437,
+          "status": "attention"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Latest value (R+194) is 2.4 robust deviations from this person's own baseline median of 5.749.",
+        "EWMA trend crossed its control limit (gradual drift).",
+        "CUSUM detected a sustained small shift.",
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C002",
+      "transform": "log10",
+      "original_unit": "pg/ml",
+      "original_values": {
+        "L-92": 1285900,
+        "L-44": 893494.17,
+        "L-3": 1336800,
+        "R+1": 629653.79,
+        "R+45": 1247300,
+        "R+82": 1114100,
+        "R+194": 1077400
+      },
+      "censored_timepoints": [],
+      "signal": "L-Selectin",
+      "unit": "log10(pg/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.608Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 6.109207196320066,
+        "mad": 0.016859240565269218,
+        "scale": 0.05,
+        "scaleMethod": "mad+floor",
+        "reason": null
+      },
+      "status": "attention",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 6.032376971209936,
+        "z": -1.5366045022025965,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": true,
+        "cusumAlarm": true,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 5.799101821800699,
+          "z": -6.202107490387334,
+          "status": "high"
+        },
+        {
+          "label": "R+45",
+          "value": 6.095970922343715,
+          "z": -0.2647254795270193,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 6.046924174230035,
+          "z": -1.24566044180062,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 6.032376971209936,
+          "z": -1.5366045022025965,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "EWMA trend crossed its control limit (gradual drift).",
+        "CUSUM detected a sustained small shift.",
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C003",
+      "transform": "log10",
+      "original_unit": "pg/ml",
+      "original_values": {
+        "L-92": 1152700,
+        "L-44": 847821.61,
+        "L-3": 1128100,
+        "R+1": 1056400,
+        "R+45": 1317500,
+        "R+82": 1058100,
+        "R+194": 1398200
+      },
+      "censored_timepoints": [],
+      "signal": "L-Selectin",
+      "unit": "log10(pg/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.608Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 6.052347599224664,
+        "mad": 0.009368693935233097,
+        "scale": 0.05,
+        "scaleMethod": "mad+floor",
+        "reason": null
+      },
+      "status": "normal",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 6.145569297792989,
+        "z": 1.8644339713665126,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 6.023828392534886,
+          "z": -0.5703841337955495,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 6.119750623884584,
+          "z": 1.3480604931983997,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 6.024526714387152,
+          "z": -0.5564176967502377,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 6.145569297792989,
+          "z": 1.8644339713665126,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C004",
+      "transform": "log10",
+      "original_unit": "pg/ml",
+      "original_values": {
+        "L-92": 1075600,
+        "L-44": 789635.95,
+        "L-3": 1364800,
+        "R+1": 1119400,
+        "R+45": 1256100,
+        "R+82": 1193000,
+        "R+194": 1250800
+      },
+      "censored_timepoints": [],
+      "signal": "L-Selectin",
+      "unit": "log10(pg/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.609Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 6.031650793551264,
+        "mad": 0.10341822027218406,
+        "scale": 0.15332785337554009,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "normal",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 6.0971878725708955,
+        "z": 0.42743100863164246,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 6.048985302570711,
+          "z": 0.11305518624192985,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 6.099024215610893,
+          "z": 0.439407586921691,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 6.076640443670342,
+          "z": 0.29342124818565357,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 6.0971878725708955,
+          "z": 0.42743100863164246,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C001",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 6973.32,
+        "L-44": 3903.78,
+        "L-3": 8602.35,
+        "R+1": 8143.69,
+        "R+45": 6374.28,
+        "R+82": 23891.75,
+        "R+194": 11371.31
+      },
+      "censored_timepoints": [],
+      "signal": "PF4",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.610Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 3.8434395950838014,
+        "mad": 0.09117751344075664,
+        "scale": 0.13517978142726578,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "attention",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 4.055810499252315,
+        "z": 1.571025651367702,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": true,
+        "cusumAlarm": true,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 3.9108212333311148,
+          "z": 0.4984594407231559,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 3.8044311366061963,
+          "z": -0.2885672551452812,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 4.378247961700828,
+          "z": 3.9562748287530223,
+          "status": "high"
+        },
+        {
+          "label": "R+194",
+          "value": 4.055810499252315,
+          "z": 1.571025651367702,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "EWMA trend crossed its control limit (gradual drift).",
+        "CUSUM detected a sustained small shift.",
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C002",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 13652.06,
+        "L-44": 3335.42,
+        "L-3": 15879.14,
+        "R+1": 5951.22,
+        "R+45": 14071.86,
+        "R+82": 12168.67,
+        "R+194": 21024.9
+      },
+      "censored_timepoints": [],
+      "signal": "PF4",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.610Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 4.135198188309476,
+        "mad": 0.06562878941835937,
+        "scale": 0.09730124319165959,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "normal",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 4.322733938855135,
+        "z": 1.9273726048521242,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 3.774606005216901,
+          "z": -3.7059360318993786,
+          "status": "high"
+        },
+        {
+          "label": "R+45",
+          "value": 4.148351505703959,
+          "z": 0.13518139093632559,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 4.085243113708667,
+          "z": -0.5134063344125057,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 4.322733938855135,
+          "z": 1.9273726048521242,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C003",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 21999.42,
+        "L-44": 2371.07,
+        "L-3": 26633.16,
+        "R+1": 28157.23,
+        "R+45": 25381.08,
+        "R+82": 21375.52,
+        "R+194": 18173.95
+      },
+      "censored_timepoints": [],
+      "signal": "PF4",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.610Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 4.342411231089482,
+        "mad": 0.08301146704845852,
+        "scale": 0.1230728010460446,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "normal",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 4.2594493288912565,
+        "z": -0.6740880315804905,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 4.4495899283505445,
+          "z": 0.8708560815233597,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 4.404510097981744,
+          "z": 0.5045701923126704,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 4.329916688564358,
+          "z": -0.10152155812598432,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 4.2594493288912565,
+          "z": -0.6740880315804905,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C004",
+      "transform": "log10",
+      "original_unit": "ng/ml",
+      "original_values": {
+        "L-92": 13080.91,
+        "L-44": 2156.35,
+        "L-3": 19678.31,
+        "R+1": 14317.3,
+        "R+45": 15095.42,
+        "R+82": 13342.85,
+        "R+194": 15624.9
+      },
+      "censored_timepoints": [],
+      "signal": "PF4",
+      "unit": "log10(ng/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.610Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 4.116637957614509,
+        "mad": 0.17734984028212697,
+        "scale": 0.26293887320228143,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "normal",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 4.193817246522534,
+        "z": 0.2935255938693019,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 4.155861125118487,
+          "z": 0.1491721898184405,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 4.178845200906308,
+          "z": 0.23658442943102756,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 4.125248603724081,
+          "z": 0.03274771054087472,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 4.193817246522534,
+          "z": 0.2935255938693019,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C001",
+      "transform": "log10",
+      "original_unit": "pg/ml",
+      "original_values": {
+        "L-92": 4760000,
+        "L-44": 5428000,
+        "L-3": 6057300,
+        "R+1": 6183500,
+        "R+45": 6670900,
+        "R+82": 13775000,
+        "R+194": 7739400
+      },
+      "censored_timepoints": [],
+      "signal": "SAP",
+      "unit": "log10(pg/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.610Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 6.734639838987699,
+        "mad": 0.04763924451844925,
+        "scale": 0.07062994392305286,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "attention",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 6.888707293139025,
+        "z": 2.18133337779757,
+        "status": "attention"
+      },
+      "detectors": {
+        "ewmaAlarm": true,
+        "cusumAlarm": true,
+        "persistentRun": 2,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 6.7912343651243665,
+          "z": 0.8012823314474601,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 6.82418443041818,
+          "z": 1.2677992711991133,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 7.139091607523823,
+          "z": 5.7263498464157045,
+          "status": "high"
+        },
+        {
+          "label": "R+194",
+          "value": 6.888707293139025,
+          "z": 2.18133337779757,
+          "status": "attention"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Latest value (R+194) is 2.2 robust deviations from this person's own baseline median of 6.735.",
+        "EWMA trend crossed its control limit (gradual drift).",
+        "CUSUM detected a sustained small shift.",
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C002",
+      "transform": "log10",
+      "original_unit": "pg/ml",
+      "original_values": {
+        "L-92": 10983000,
+        "L-44": 4509000,
+        "L-3": 11733000,
+        "R+1": 5592700,
+        "R+45": 10765000,
+        "R+82": 10210000,
+        "R+194": 11337000
+      },
+      "censored_timepoints": [],
+      "signal": "SAP",
+      "unit": "log10(pg/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.610Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 7.040720983601194,
+        "mad": 0.028688087070599444,
+        "scale": 0.05,
+        "scaleMethod": "mad+floor",
+        "reason": null
+      },
+      "status": "attention",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 7.054498146636677,
+        "z": 0.27554326070966084,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": true,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 6.74762152380904,
+          "z": -5.861989195843069,
+          "status": "high"
+        },
+        {
+          "label": "R+45",
+          "value": 7.032014034159506,
+          "z": -0.17413898883376078,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 7.00902574208691,
+          "z": -0.6339048302856654,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 7.054498146636677,
+          "z": 0.27554326070966084,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "CUSUM detected a sustained small shift.",
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C003",
+      "transform": "log10",
+      "original_unit": "pg/ml",
+      "original_values": {
+        "L-92": 16583000,
+        "L-44": 5319800,
+        "L-3": 18242000,
+        "R+1": 16745000,
+        "R+45": 13993000,
+        "R+82": 13595000,
+        "R+194": 12038000
+      },
+      "censored_timepoints": [],
+      "signal": "SAP",
+      "unit": "log10(pg/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.610Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 7.219663100737022,
+        "mad": 0.041409350653800914,
+        "scale": 0.06139350327932523,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "attention",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 7.0805543389887715,
+        "z": -2.265854761787091,
+        "status": "attention"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 1,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 7.223885151875885,
+          "z": 0.06877032443732731,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 7.145910834132374,
+          "z": -1.201304090256812,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 7.133379211923519,
+          "z": -1.4054237696932257,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 7.0805543389887715,
+          "z": -2.265854761787091,
+          "status": "attention"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Latest value (R+194) is -2.3 robust deviations from this person's own baseline median of 7.22.",
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    },
+    {
+      "subject_id": "C004",
+      "transform": "log10",
+      "original_unit": "pg/ml",
+      "original_values": {
+        "L-92": 10138000,
+        "L-44": 4048000,
+        "L-3": 12111000,
+        "R+1": 12329000,
+        "R+45": 11850000,
+        "R+82": 9482000,
+        "R+194": 13414000
+      },
+      "censored_timepoints": [],
+      "signal": "SAP",
+      "unit": "log10(pg/ml)",
+      "sourceLabel": "NASA_RESEARCH",
+      "datasetId": "OSD-575",
+      "direction": "both",
+      "thresholdsNote": "Prototype demonstration rules, configurable; not clinical thresholds.",
+      "timestamp": "2026-11-14T19:34:21.610Z",
+      "baseline": {
+        "status": "ready",
+        "n": 3,
+        "confidence": "low",
+        "median": 7.005952286887383,
+        "mad": 0.07722771724259392,
+        "scale": 0.11449781358386973,
+        "scaleMethod": "mad",
+        "reason": null
+      },
+      "status": "normal",
+      "confidence": "low",
+      "latest": {
+        "label": "R+194",
+        "value": 7.1275583020046325,
+        "z": 1.0620815482050499,
+        "status": "normal"
+      },
+      "detectors": {
+        "ewmaAlarm": false,
+        "cusumAlarm": false,
+        "persistentRun": 0,
+        "persistent": false
+      },
+      "points": [
+        {
+          "label": "R+1",
+          "value": 7.090927852581608,
+          "z": 0.74215885032582,
+          "status": "normal"
+        },
+        {
+          "label": "R+45",
+          "value": 7.073718350346122,
+          "z": 0.5918546506488587,
+          "status": "normal"
+        },
+        {
+          "label": "R+82",
+          "value": 6.976899950982938,
+          "z": -0.2537370364995129,
+          "status": "normal"
+        },
+        {
+          "label": "R+194",
+          "value": 7.1275583020046325,
+          "z": 1.0620815482050499,
+          "status": "normal"
+        }
+      ],
+      "dataQuality": {
+        "total": 4,
+        "usable": 4,
+        "missing": 0
+      },
+      "contributingFactors": [
+        "Baseline is based on only 3 observations (low confidence)."
+      ]
+    }
+  ]
+}

@@ -9,6 +9,11 @@ import BrainSleep from './pages/BrainSleep'
 import Radiation from './pages/Radiation'
 import MuscleBone from './pages/MuscleBone'
 import ResearchLibrary from './pages/ResearchLibrary'
+import { useEffect } from 'react'
+import BlackoutMode from './pages/BlackoutMode'
+import { getAstronautState, USE_MOCK } from './services/api'
+import { saveSnapshot } from './services/offlineStore'
+
 
 const PAGES = {
   '/': <CommandCenter />,
@@ -18,9 +23,16 @@ const PAGES = {
   '/radiation': <Radiation />,
   '/musculoskeletal': <MuscleBone />,
   '/research': <ResearchLibrary />,
+  '/blackout': <BlackoutMode />,
 }
 
 export default function App() {
+    useEffect(() => {
+    if (!navigator.onLine) return
+    getAstronautState()
+      .then((s) => saveSnapshot(s, USE_MOCK ? 'SIMULATED_DEMO' : 'API'))
+      .catch(() => {})
+  }, [])
   return (
     <Routes>
       <Route element={<AppShell />}>

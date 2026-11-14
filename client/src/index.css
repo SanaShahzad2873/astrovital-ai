@@ -9,7 +9,7 @@
 @import "@fontsource/ibm-plex-mono/500.css";
 
 @theme {
-  /* Official AstroVital palette */
+  /* Official AstroVital palette (unchanged) */
   --color-nasa-blue: #0B3D91;
   --color-space-navy: #061A35;
   --color-mission-yellow: #FFD100;
@@ -41,11 +41,14 @@
     color: white;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
+  /* Headings: clean sentence case instead of loud condensed caps */
   h1, h2, h3 {
-    font-family: var(--font-display);
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-transform: none;
   }
   :focus-visible {
     outline: 2px solid var(--color-mission-yellow);
@@ -53,11 +56,11 @@
   }
 }
 
-/* ---------- Background: deep space + glow + engineering grid ---------- */
+/* ---------- Background: deep space + glow + faint grid ---------- */
 body {
   background:
-    radial-gradient(1000px 520px at 85% -10%, rgba(11, 61, 145, 0.55), transparent 60%),
-    radial-gradient(700px 420px at -5% 105%, rgba(46, 111, 216, 0.22), transparent 60%),
+    radial-gradient(1000px 520px at 85% -10%, rgba(11, 61, 145, 0.5), transparent 60%),
+    radial-gradient(700px 420px at -5% 105%, rgba(46, 111, 216, 0.2), transparent 60%),
     var(--color-space-navy);
   background-attachment: fixed;
 }
@@ -68,87 +71,54 @@ body::before {
   pointer-events: none;
   z-index: 0;
   background-image:
-    linear-gradient(rgba(220, 230, 241, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(220, 230, 241, 0.045) 1px, transparent 1px);
-  background-size: 44px 44px;
-  -webkit-mask-image: radial-gradient(ellipse at 70% 0%, black 0%, transparent 75%);
-  mask-image: radial-gradient(ellipse at 70% 0%, black 0%, transparent 75%);
+    linear-gradient(rgba(220, 230, 241, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(220, 230, 241, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse at 70% 0%, black 0%, transparent 70%);
+  mask-image: radial-gradient(ellipse at 70% 0%, black 0%, transparent 70%);
 }
 #root { position: relative; z-index: 1; }
 
-/* ---------- HUD panel: used by every card in the app ---------- */
+/* ---------- Glass panel: used by every card in the app ---------- */
 .glass-card {
   position: relative;
-  background: linear-gradient(180deg, rgba(14, 47, 92, 0.55), rgba(6, 26, 53, 0.85));
-  border: 1px solid rgba(90, 169, 255, 0.22);
-  border-radius: 0.75rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.015));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
   box-shadow:
-    0 14px 30px -20px rgba(0, 0, 0, 0.9),
-    0 0 0 1px rgba(11, 61, 145, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(8px);
-  transition: border-color 0.2s ease;
+    0 18px 40px -24px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(14px);
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
-.glass-card:hover { border-color: rgba(90, 169, 255, 0.42); }
+.glass-card:hover { border-color: rgba(255, 255, 255, 0.18); }
 
-/* Corner brackets: yellow top-left, blue bottom-right */
-.glass-card::before,
-.glass-card::after {
-  content: "";
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  pointer-events: none;
-  border: 2px solid transparent;
-}
-.glass-card::before {
-  top: 0;
-  left: 0;
-  border-top-color: var(--color-mission-yellow);
-  border-left-color: var(--color-mission-yellow);
-  border-top-left-radius: 0.75rem;
-}
-.glass-card::after {
-  bottom: 0;
-  right: 0;
-  border-bottom-color: rgba(90, 169, 255, 0.9);
-  border-right-color: rgba(90, 169, 255, 0.9);
-  border-bottom-right-radius: 0.75rem;
-}
-
-/* Hero stage: glow behind the astronaut twin */
+/* Hero stage: soft spotlight behind the astronaut twin */
 .hero-stage {
   background:
-    radial-gradient(ellipse at 50% 58%, rgba(46, 111, 216, 0.32), transparent 62%),
-    linear-gradient(180deg, rgba(11, 61, 145, 0.25), rgba(6, 26, 53, 0.92));
+    radial-gradient(60% 55% at 50% 45%, rgba(43, 91, 190, 0.28), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015));
 }
 
-/* Small telemetry-style label with a yellow marker */
+/* Quiet section label (sidebar groups, panel titles) */
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(220, 230, 241, 0.65);
-}
-.eyebrow::before {
-  content: "";
-  width: 5px;
-  height: 5px;
-  background: var(--color-mission-yellow);
-  flex-shrink: 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: rgba(220, 230, 241, 0.6);
 }
 
-/* Big numbers with a soft glow */
+/* Big numbers: condensed display face, tabular, restrained glow */
 .num {
   font-family: var(--font-display);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
-  text-shadow: 0 0 18px rgba(90, 169, 255, 0.35);
+  text-shadow: 0 0 22px rgba(90, 169, 255, 0.28);
 }
 
 /* Slim dark scrollbars */
@@ -164,7 +134,7 @@ svg g[role="button"]:focus-visible {
 }
 svg g[role="button"]:focus-visible > * {
   stroke: var(--color-mission-yellow);
-  stroke-width: 4px;
+  stroke-width: 3px;
 }
 
 /* Slow rotating HUD ring (twin stage) */
@@ -176,4 +146,5 @@ svg g[role="button"]:focus-visible > * {
 }
 @media (prefers-reduced-motion: reduce) {
   .hud-spin { animation: none; }
+  .glass-card { transition: none; }
 }

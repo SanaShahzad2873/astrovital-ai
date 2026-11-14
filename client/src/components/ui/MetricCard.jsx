@@ -15,11 +15,11 @@ function Arrow({ up }) {
   )
 }
 
-// showSource: the "SIMULATED DEMO" tag is already covered by the page banner,
-// so it is hidden on KPI cards by default. Pass showSource to bring it back.
+// showSource: the project rules require a source label on every value,
+// so it is shown by default (pass showSource={false} only if a parent already labels it).
 export default function MetricCard({
   label, value, unit, status = 'unknown', source, footnote, to, icon: Icon, history,
-  showSource = false,
+  showSource = true,
 }) {
   const missing = value === null || value === undefined
   const st = missing ? 'unknown' : status

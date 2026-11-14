@@ -15,6 +15,7 @@ export const DEFAULT_CONFIG = {
   ],
   madScaleFactor: 1.4826,    // makes MAD comparable to a standard deviation
   minScaleFraction: 0.05,    // floor on spread = 5% of |median| (avoids huge z from tiny MAD)
+  minScaleAbsolute: 0,       // optional floor in the data's own units (use this for log-scaled data)
 };
 
 // Keep only real numbers. Missing data (null, undefined, NaN, text) is dropped,
@@ -74,7 +75,7 @@ export function buildBaseline(values, userConfig = {}) {
   }
 
   // Floor so a lucky-tight baseline can't produce huge z-scores.
-  const floor = config.minScaleFraction * Math.abs(med);
+  const floor = Math.max(config.minScaleFraction * Math.abs(med), config.minScaleAbsolute);
   if (scale < floor) {
     scale = floor;
     scaleMethod += '+floor';

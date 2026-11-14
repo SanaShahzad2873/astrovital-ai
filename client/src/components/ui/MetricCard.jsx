@@ -33,6 +33,8 @@ export default function MetricCard({
 
   const footText = footnote ? footnote.replace(/^data:/i, 'Data quality:') : null
   const pct = missing ? 0 : Math.max(0, Math.min(100, Number(value)))
+  // The bar shows a 0-100 score. It must not be used for values like bpm or ms.
+  const showBar = !unit || unit === '/100'
 
   const body = (
     <div className="glass-card group relative flex h-full flex-col overflow-hidden p-5 transition duration-200 hover:border-white/25">
@@ -44,7 +46,7 @@ export default function MetricCard({
       />
 
       {/* header: icon + name, status on the right */}
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
         <div className="flex min-w-0 items-center gap-2.5">
           {Icon && (
             <span
@@ -54,7 +56,7 @@ export default function MetricCard({
               <Icon size={18} />
             </span>
           )}
-          <p className="min-w-0 truncate text-[15px] font-semibold text-white">{label}</p>
+          <p className="min-w-0 text-[15px] font-semibold leading-tight text-white">{label}</p>
         </div>
         <StatusBadge status={st} />
       </div>
@@ -63,14 +65,14 @@ export default function MetricCard({
       <div className="mt-5 flex items-end justify-between gap-4">
         <div className="min-w-0">
           {missing ? (
-            <p className="text-lg font-semibold text-ice/50">No data yet</p>
+            <p className="whitespace-nowrap text-lg font-semibold text-ice/50">No data yet</p>
           ) : (
             <p className="flex items-baseline gap-1.5">
               <span className="num text-[46px] leading-none tracking-tight text-white">{value}</span>
               {unit && <span className="text-sm font-medium text-ice/50">{unit}</span>}
             </p>
           )}
-          <p className="mt-2 flex h-5 items-center gap-1 text-xs font-medium text-ice/70 tabular-nums">
+          <p className="mt-2 flex h-5 items-center gap-1 whitespace-nowrap text-xs font-medium text-ice/70 tabular-nums">
             {delta !== null && !missing ? (
               <>
                 <Arrow up={delta >= 0} />
@@ -82,30 +84,28 @@ export default function MetricCard({
           </p>
         </div>
 
-        <div className="h-14 w-32 shrink-0">
-          {hasTrend ? (
+        {hasTrend && (
+          <div className="h-14 w-24 shrink-0">
             <Sparkline data={history} color={color} />
-          ) : (
-            <div className="flex h-full items-end">
-              <div className="h-px w-full bg-white/10" />
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
-      {/* score bar: how full the 0-100 scale is */}
-      <div className="mt-5" role="img" aria-label={missing ? 'No score' : `Score ${pct} out of 100`}>
-        <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/[0.08]">
-          <div
-            className="h-full rounded-full"
-            style={{
-              width: `${pct}%`,
-              background: `linear-gradient(90deg, color-mix(in srgb, ${color} 55%, transparent), ${color})`,
-              boxShadow: missing ? 'none' : `0 0 10px ${color}`,
-            }}
-          />
+      {/* score bar: only for 0-100 scores, never for bpm / ms values */}
+      {showBar && (
+        <div className="mt-5" role="img" aria-label={missing ? 'No score' : `Score ${pct} out of 100`}>
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/[0.08]">
+            <div
+              className="h-full rounded-full"
+              style={{
+                width: `${pct}%`,
+                background: `linear-gradient(90deg, color-mix(in srgb, ${color} 55%, transparent), ${color})`,
+                boxShadow: missing ? 'none' : `0 0 10px ${color}`,
+              }}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       {/* quiet footer */}
       <div className="mt-3 flex min-h-[18px] flex-wrap items-center gap-2">

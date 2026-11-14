@@ -1,7 +1,9 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'      // keep whatever your file already has here
-import tailwindcss from '@tailwindcss/vite'   // add this line
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+import { VitePWA } from 'vite-plugin-pwa'
+import { pwaConfig } from './pwa.config.js'
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],          // add tailwindcss() here
+  plugins: [react(), tailwindcss(), VitePWA(pwaConfig)],
 })

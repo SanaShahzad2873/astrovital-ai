@@ -14,7 +14,17 @@ async function request(path) {
   return res.json()
 }
 
+// VITE_USE_SERVER=true -> read from the Express API, and fall back to the in-browser engine if it is down.
+export const USE_SERVER = import.meta.env.VITE_USE_SERVER === 'true'
+
 export async function getAstronautState() {
+  if (USE_SERVER) {
+    try {
+      return await request('/api/astronaut/state')
+    } catch {
+      return getEngineState()
+    }
+  }
   if (USE_ENGINE) {
     await delay(200)
     return getEngineState()

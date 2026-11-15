@@ -1,5 +1,6 @@
 import { Brain } from 'lucide-react'
 import DomainPage from './DomainPage'
+import ReactionTestPanel from '../components/panels/ReactionTestPanel'
 
 const LIMITATIONS = [
   'Raw individual NASA sleep-wake actigraphy records are used only if they are actually accessible. Otherwise this screen shows self-reported inputs and simulated demo telemetry.',
@@ -15,6 +16,7 @@ export default function BrainSleep() {
       title="Brain & Sleep"
       icon={Brain}
       limitations={LIMITATIONS}
+      extra={<ReactionTestPanel />}
     />
   )
 }

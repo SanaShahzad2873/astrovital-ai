@@ -10,7 +10,7 @@ import useAsync from '../hooks/useAsync'
 import { getAstronautState } from '../services/api'
 import { STATUS_COLOR } from '../config/status'
 
-export default function DomainPage({ domainKey, title, icon: Icon, limitations = [] }) {
+export default function DomainPage({ domainKey, title, icon: Icon, limitations = [], extra = null }) {
   const { data, error, loading, reload } = useAsync(getAstronautState)
 
   if (loading) return <LoadingState />
@@ -150,6 +150,8 @@ export default function DomainPage({ domainKey, title, icon: Icon, limitations =
           </dl>
         </Card>
       </div>
+
+      {extra}
 
       {/* Data limitations */}
       {limitations.length > 0 && (

@@ -1,0 +1,11 @@
+{
+  "name": "astrovital-ai",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && npm --prefix client install && npm --prefix server install",
+    "dev": "concurrently -n api,web -c cyan,yellow \"npm --prefix server run start\" \"npm --prefix client run dev\"",
+    "build": "npm --prefix client run build",
+    "test:engine": "node --test src/engine/__tests__/engine.test.js src/engine/__tests__/riskFusion.test.js src/engine/__tests__/twinMapping.test.js src/engine/__tests__/demoScenario.test.js src/engine/__tests__/sleepSimulator.test.js src/engine/__tests__/exerciseSimulator.test.js src/engine/__tests__/browserSafe.test.js"
+  },
+  "devDependencies": { "concurrently": "^9.1.0" }
+}
